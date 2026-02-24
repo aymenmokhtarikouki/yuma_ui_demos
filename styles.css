@@ -6,7 +6,7 @@
   --text-2: #6B7280;
   --text-3: #9CA3AF;
   --accent-primary: #111111;
-  --success-dot: #22C55E;
+  --success-dot: #16A34A;
 }
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 body { margin: 0; font-family: Inter, system-ui, sans-serif; background: var(--bg); color: var(--text); }
@@ -52,7 +52,7 @@ details[open] .chev { transform: rotate(180deg); }
 
 .swipe-card { position: relative; touch-action: pan-y; }
 .swipe-action { position: absolute; inset: 1px; border-radius: 20px; display: flex; align-items: center; padding: 0 16px; font-size: 14px; font-weight: 500; color: #fff; pointer-events: none; }
-.swipe-action.left { justify-content: flex-start; background: #1a9f6b; }
+.swipe-action.left { justify-content: flex-start; background: #111111; }
 .swipe-action.right { justify-content: flex-end; background: #b44747; }
 .card-body { position: relative; background: var(--surface); border: 1px solid var(--border-subtle); border-radius: 20px; padding: 20px 16px; transition: transform 200ms ease; }
 .priority-low .card-body { background: #FAFAFA; border-color: var(--border-subtle); }
