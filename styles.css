@@ -20,8 +20,8 @@ h1 { margin: 0; font-size: 42px; line-height: 1; font-weight: 700; letter-spacin
 
 .filters-wrap { margin-top: 16px; position: sticky; top: 0; z-index: 8; background: var(--bg); }
 .segmented { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
-.seg { border: 1px solid transparent; border-radius: 999px; background: transparent; color: var(--text-2); font-size: 13px; font-weight: 500; min-height: 36px; }
-.seg.active { border-color: var(--border-subtle); color: var(--text); }
+.seg { border: 0; border-radius: 999px; background: transparent; color: var(--text-2); font-size: 13px; font-weight: 500; min-height: 36px; }
+.seg.active { background: #F3F4F6; color: var(--text); }
 
 .live-strip { margin-top: 12px; }
 .live-strip p { margin: 0; display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--text-2); }
@@ -71,7 +71,7 @@ details[open] .chev { transform: rotate(180deg); }
 .confirm-btn { border: 0; background: var(--accent-primary); color: #FFFFFF; }
 .confirm-btn:active, .light-btn:active, .decline-btn:active { transform: scale(.97); }
 .decline-btn { border: 0; background: transparent; color: #374151; font-weight: 400; }
-.light-btn { border: 1px solid var(--border-subtle); background: transparent; color: #111; }
+.light-btn { border: 1px solid var(--border-subtle); background: #F9FAFB; color: #374151; }
 
 .loading { position: relative; color: transparent !important; }
 .loading::after { content: ''; width: 16px; height: 16px; border: 2px solid #fff; border-top-color: transparent; border-radius: 50%; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); animation: spin .8s linear infinite; }
@@ -89,7 +89,7 @@ details[open] .chev { transform: rotate(180deg); }
 .sheet-card textarea { width: 100%; border: 1px solid var(--border-subtle); border-radius: 16px; background: #fff; padding: 12px; resize: vertical; font: inherit; }
 .sheet-card menu { margin: 16px 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .sheet-cancel, .sheet-danger { min-height: 48px; border-radius: 16px; font-weight: 600; border: 0; }
-.sheet-cancel { background: transparent; border: 1px solid var(--border-subtle); color: #111; }
+.sheet-cancel { background: #F9FAFB; border: 1px solid var(--border-subtle); color: #374151; }
 .sheet-danger { background: #b84747; color: #fff; }
 
 .skeleton .title, .skeleton .meta-line, .skeleton .time, .skeleton .status-line, .skeleton .delivery-meta, .skeleton button {
