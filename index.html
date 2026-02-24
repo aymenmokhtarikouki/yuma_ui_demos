@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yuma Kitchen Orders</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell" data-mode="orders">
+      <header class="topbar">
+        <div>
+          <h1>Orders</h1>
+        </div>
+        <div class="header-actions">
+          <button id="prep-mode-btn" class="prep-mode-btn" type="button">Focus Mode</button>
+          <button class="icon-btn" aria-label="Notifications" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 17h5l-1.4-1.4A2 2 0 0 1 18 14.2V11a6 6 0 1 0-12 0v3.2a2 2 0 0 1-.6 1.4L4 17h5m6 0a3 3 0 0 1-6 0"/></svg>
+            <span class="notif-dot" aria-hidden="true"></span>
+          </button>
+        </div>
+      </header>
+
+      <section class="time-slots" aria-label="Operational time slots">
+        <div class="time-slots-scroll" role="tablist" aria-label="Time slot filter">
+          <button class="time-chip active" type="button" role="tab" data-slot="all" aria-selected="true">All day</button>
+          <button class="time-chip" type="button" role="tab" data-slot="08-10" aria-selected="false">08–10</button>
+          <button class="time-chip" type="button" role="tab" data-slot="10-12" aria-selected="false">10–12</button>
+          <button class="time-chip" type="button" role="tab" data-slot="12-14" aria-selected="false">12–14</button>
+          <button class="time-chip" type="button" role="tab" data-slot="14-16" aria-selected="false">14–16</button>
+          <button class="time-chip" type="button" role="tab" data-slot="16-18" aria-selected="false">16–18</button>
+        </div>
+      </section>
+
+      <section class="ops-row" aria-label="Live status and daily summary">
+        <div class="ops-live"><span class="live-dot"></span><span class="live-label">Live</span><span class="live-updated">Updated 10s ago</span></div>
+      </section>
+
+
+      <section class="status-filters" aria-label="Order status filter">
+        <div class="status-filters-scroll" role="tablist" aria-label="Status filter">
+          <button class="status-chip active" type="button" role="tab" data-status-filter="all" aria-selected="true">All</button>
+          <button class="status-chip" type="button" role="tab" data-status-filter="new" aria-selected="false">New</button>
+          <button class="status-chip" type="button" role="tab" data-status-filter="inprogress" aria-selected="false">In progress</button>
+          <button class="status-chip" type="button" role="tab" data-status-filter="done" aria-selected="false">Completed</button>
+        </div>
+      </section>
+      <section class="content-shell" id="orders-view">
+        <details class="lane" data-status="new" open>
+          <summary class="lane-head">
+            <h3>New</h3>
+            <div class="head-right"><span class="count">0</span><span class="chev">⌄</span></div>
+          </summary>
+          <div class="cards">
+            <article class="order-card swipe-card priority-high" data-order-type="simple" data-slot="12-14" data-portions="2">
+              <div class="swipe-action left">Confirm</div>
+              <div class="swipe-action right">Decline</div>
+              <div class="card-body">
+                <div class="order-meta"><p class="title">Cheesecake Box</p><p class="time">12:00</p></div>
+                <p class="meta-line">Aymen Mokhtari · #297980 · Simple order</p>
+                <p class="status-line"><span class="dot"></span>Awaiting confirmation</p>
+                <div class="order-footer">
+                  <p class="delivery-meta">Pickup · Confirmation needed</p>
+                  <div class="actions">
+                    <button class="decline-btn action-decline" type="button">Decline</button>
+                    <button class="confirm-btn action-confirm" type="button">Confirm</button>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="order-card swipe-card priority-high" data-order-type="simple" data-slot="12-14" data-portions="3">
+              <div class="swipe-action left">Confirm</div>
+              <div class="swipe-action right">Decline</div>
+              <div class="card-body">
+                <div class="order-meta"><p class="title">Chocolate Snacks Bundle</p><p class="time">12:06</p></div>
+                <p class="meta-line">Lina Barakat · #297982 · Simple order</p>
+                <p class="status-line"><span class="dot"></span>Awaiting confirmation</p>
+                <div class="order-footer">
+                  <p class="delivery-meta">Delivery · Confirmation needed</p>
+                  <div class="actions">
+                    <button class="decline-btn action-decline" type="button">Decline</button>
+                    <button class="confirm-btn action-confirm" type="button">Confirm</button>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </details>
+
+        <details class="lane" data-status="inprogress" open>
+          <summary class="lane-head">
+            <h3>In progress</h3>
+            <div class="head-right"><span class="count">0</span><span class="chev">⌄</span></div>
+          </summary>
+          <div class="cards">
+            <article class="order-card swipe-card priority-mid" data-order-type="weekly_plan" data-slot="12-14" data-portions="12">
+              <div class="swipe-action left">Complete</div>
+              <div class="swipe-action right">Undo</div>
+              <div class="card-body">
+                <div class="order-meta">
+                  <div class="title-with-icon" aria-label="Weekly plan">
+                    <svg class="weekly-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="4"></rect><path d="M7 2v4M17 2v4M3 9h18"></path><path d="M8 13h3M13 13h3M8 17h3"></path></svg>
+                    <p class="title">Weekly Meal Plan</p>
+                  </div>
+                  <p class="time">13:30</p>
+                </div>
+                <p class="meta-line">Sami Obaid · #297981 · Weekly plan</p>
+                <p class="status-line">Scheduled delivery</p>
+                <div class="order-footer">
+                  <p class="delivery-meta">Tue, 13:30 · Confirmation needed</p>
+                  <div class="actions"><button class="light-btn action-complete" type="button">Confirm delivery</button></div>
+                </div>
+              </div>
+            </article>
+
+            <article class="order-card swipe-card priority-mid" data-order-type="hot" data-slot="12-14" data-portions="8">
+              <div class="swipe-action left">Complete</div>
+              <div class="swipe-action right">Undo</div>
+              <div class="card-body">
+                <div class="order-meta"><p class="title">Daily Hot Meal</p><p class="time">12:45</p></div>
+                <p class="meta-line">Nour Haddad · #297977 · Hot meal</p>
+                <p class="status-line">Pickup confirmation needed</p>
+                <div class="order-footer">
+                  <p class="delivery-meta">Today, 12:45 · Confirmation needed</p>
+                  <div class="actions"><button class="light-btn action-complete" type="button">Confirm pickup</button></div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </details>
+
+        <details class="lane" data-status="done" open>
+          <summary class="lane-head">
+            <h3>Completed</h3>
+            <div class="head-right"><span class="count">0</span><span class="chev">⌄</span></div>
+          </summary>
+          <div class="cards">
+            <article class="order-card compact priority-low" data-slot="10-12" data-portions="1"><div class="card-body"><div class="order-meta"><p class="title">Falafel Wrap Combo</p><p class="time">11:14</p></div><p class="meta-line">Youssef Naim · #297965 · Simple order</p></div></article>
+            <article class="order-card compact priority-low" data-slot="10-12" data-portions="1"><div class="card-body"><div class="order-meta"><p class="title">Fruit Bowl Pack</p><p class="time">11:40</p></div><p class="meta-line">Nour Haddad · #297970 · Hot meal</p></div></article>
+          </div>
+        </details>
+      </section>
+
+      <section class="content-shell prep-view hidden" id="prep-view" aria-live="polite">
+        <div id="prep-list"></div>
+      </section>
+    </main>
+
+    <dialog id="decline-sheet" class="sheet">
+      <form method="dialog" class="sheet-card">
+        <h4>Decline order</h4>
+        <p>Optional reason</p>
+        <textarea id="decline-reason" rows="3" placeholder="Add reason for kitchen log"></textarea>
+        <menu>
+          <button value="cancel" class="sheet-cancel" type="submit">Cancel</button>
+          <button value="confirm" class="sheet-danger" type="submit">Confirm decline</button>
+        </menu>
+      </form>
+    </dialog>
+
+    <script src="script.js"></script>
+  </body>
+</html>
