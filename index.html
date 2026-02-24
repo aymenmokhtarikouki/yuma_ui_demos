@@ -13,7 +13,6 @@
     <main class="app-shell" data-mode="orders">
       <header class="topbar">
         <div>
-          <p class="eyebrow">Kitchen manager</p>
           <h1>Orders</h1>
         </div>
         <button class="icon-btn" aria-label="Notifications" type="button">
@@ -40,16 +39,15 @@
         </div>
       </section>
 
-      <section class="live-strip" aria-label="Live status">
-        <p><span class="live-dot"></span><strong>Live</strong><small>Updated 10s ago</small></p>
-      </section>
-
-      <section class="metrics-inline" aria-label="Daily summary">
-        <p>New <strong id="sum-new">0</strong></p>
-        <span>·</span>
-        <p>In progress <strong id="sum-progress">0</strong></p>
-        <span>·</span>
-        <p>Completed <strong id="sum-done">0</strong></p>
+      <section class="ops-row" aria-label="Live status and daily summary">
+        <div class="ops-live"><span class="live-dot"></span><span class="live-label">Live</span><span class="live-updated">Updated 10s ago</span></div>
+        <div class="ops-metrics">
+          <p>New <strong id="sum-new">0</strong></p>
+          <span>·</span>
+          <p>In progress <strong id="sum-progress">0</strong></p>
+          <span>·</span>
+          <p>Completed <strong id="sum-done">0</strong></p>
+        </div>
       </section>
 
       <section class="content-shell" id="orders-view">
