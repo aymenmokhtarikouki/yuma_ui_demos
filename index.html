@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yuma Orders — Premium Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="noise" aria-hidden="true"></div>
+    <main class="page">
+      <header class="hero glass">
+        <div>
+          <p class="eyebrow">Live operations</p>
+          <h1>Never miss an order.</h1>
+          <p class="hero-copy">
+            A modern command center for your kitchen team. Fast actions, clean hierarchy,
+            and luxury visual polish.
+          </p>
+        </div>
+        <div class="hero-stats">
+          <article>
+            <p>Avg prep time</p>
+            <h3>14 min</h3>
+          </article>
+          <article>
+            <p>Today revenue</p>
+            <h3>$2,940</h3>
+          </article>
+          <article>
+            <p>Customer rating</p>
+            <h3>4.9 ★</h3>
+          </article>
+        </div>
+      </header>
+
+      <section class="toolbar glass" aria-label="Control bar">
+        <div class="online"><span></span>Online • Auto-refreshing every 20s</div>
+        <div class="toolbar-actions">
+          <button class="btn-icon" type="button" aria-label="Search">
+            <svg viewBox="0 0 24 24"><path d="M11 19a8 8 0 1 1 0-16 8 8 0 0 1 0 16Zm9 2-4.4-4.4" /></svg>
+          </button>
+          <button class="btn-icon" type="button" aria-label="Filter">
+            <svg viewBox="0 0 24 24"><path d="M4 7h16M7 12h10M10 17h4" /></svg>
+          </button>
+          <button class="btn-icon" type="button" aria-label="Refresh">
+            <svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7M21 4v6h-6" /></svg>
+          </button>
+        </div>
+      </section>
+
+      <section class="board" aria-label="Order board">
+        <article class="lane glass" data-status="new">
+          <header>
+            <h2>New</h2>
+            <span class="count">2</span>
+          </header>
+
+          <div class="order-card">
+            <div class="order-top">
+              <div>
+                <p class="dish">Truffle Mushroom Burger</p>
+                <p class="customer">Aymen Mokhtari</p>
+                <p class="meta">#297980 • 2 items</p>
+              </div>
+              <div class="time">12:00</div>
+            </div>
+            <div class="order-bottom">
+              <span class="state"><i></i>Awaiting confirmation</span>
+              <div class="cta">
+                <button class="link" type="button">Decline</button>
+                <button class="pill" type="button">Confirm</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="order-card">
+            <div class="order-top">
+              <div>
+                <p class="dish">Chicken Shawarma Bowl</p>
+                <p class="customer">Lina Barakat</p>
+                <p class="meta">#297982 • Priority</p>
+              </div>
+              <div class="time">12:06</div>
+            </div>
+            <div class="order-bottom">
+              <span class="state"><i></i>Scheduled for pickup</span>
+              <div class="cta">
+                <button class="link" type="button">Decline</button>
+                <button class="pill" type="button">Confirm</button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="lane glass" data-status="confirmed">
+          <header>
+            <h2>In Progress</h2>
+            <span class="count">1</span>
+          </header>
+          <div class="order-card">
+            <div class="order-top">
+              <div>
+                <p class="dish">Couscous Royale</p>
+                <p class="customer">Aymen Mokhtari</p>
+                <p class="meta">#297981 • Driver waiting</p>
+              </div>
+              <div class="time">12:03</div>
+            </div>
+            <div class="order-bottom">
+              <span class="state"><i></i>Cooking now</span>
+              <div class="cta">
+                <button class="ghost" type="button">Mark ready</button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="lane glass" data-status="done">
+          <header>
+            <h2>Completed</h2>
+            <span class="count">2</span>
+          </header>
+          <div class="order-card compact">
+            <div class="order-top">
+              <div>
+                <p class="dish">Couscous Royale</p>
+                <p class="customer">Aymen Mokhtari</p>
+                <p class="meta">#297970</p>
+              </div>
+              <div class="time">11:40</div>
+            </div>
+          </div>
+          <div class="order-card compact">
+            <div class="order-top">
+              <div>
+                <p class="dish">Falafel Wrap Combo</p>
+                <p class="customer">Sami Obaid</p>
+                <p class="meta">#297965</p>
+              </div>
+              <div class="time">11:14</div>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
