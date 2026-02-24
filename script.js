@@ -1,10 +1,7 @@
-const counts = {
-  new: document.querySelectorAll('[data-status="new"] .order-card').length,
-  confirmed: document.querySelectorAll('[data-status="confirmed"] .order-card').length,
-  done: document.querySelectorAll('[data-status="done"] .order-card').length,
-};
+const lanes = document.querySelectorAll('.lane[data-status]');
 
-Object.entries(counts).forEach(([status, total]) => {
-  const badge = document.querySelector(`[data-status="${status}"] .count`);
+lanes.forEach((lane) => {
+  const total = lane.querySelectorAll('.order-card').length;
+  const badge = lane.querySelector('.count');
   if (badge) badge.textContent = String(total);
 });
