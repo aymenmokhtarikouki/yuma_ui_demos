@@ -1,0 +1,127 @@
+:root {
+  --bg: #0a0f1a;
+  --surface: rgba(255, 255, 255, 0.06);
+  --surface-strong: rgba(255, 255, 255, 0.1);
+  --ink: #f5f8ff;
+  --muted: rgba(241, 245, 255, 0.68);
+  --line: rgba(255, 255, 255, 0.14);
+  --brand: #1ee39c;
+  --brand-soft: rgba(30, 227, 156, 0.18);
+  --danger: #ff6b6b;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 10% -5%, #1c2844 0%, transparent 40%),
+    radial-gradient(circle at 100% 0%, #1c443b 0%, transparent 32%),
+    var(--bg);
+}
+
+.noise {
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(rgba(255,255,255,.03) 1px, transparent 0);
+  background-size: 3px 3px;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 28px;
+}
+
+.glass {
+  backdrop-filter: blur(14px);
+  background: linear-gradient(145deg, rgba(255,255,255,.09), rgba(255,255,255,.04));
+  border: 1px solid var(--line);
+  box-shadow: 0 10px 24px rgba(0,0,0,.24);
+  border-radius: 24px;
+}
+
+.hero {
+  padding: 30px;
+  display: flex;
+  gap: 24px;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.eyebrow { margin: 0; color: var(--brand); font-weight: 700; text-transform: uppercase; letter-spacing: .12em; font-size: 11px; }
+h1 { margin: 8px 0; font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.02; }
+.hero-copy { margin: 0; color: var(--muted); max-width: 58ch; }
+
+.hero-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; min-width: 360px; }
+.hero-stats article { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 14px; }
+.hero-stats p { margin: 0; color: var(--muted); font-size: 12px; }
+.hero-stats h3 { margin: 8px 0 0; font-size: 1.1rem; }
+
+.toolbar {
+  padding: 14px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.online { display: inline-flex; align-items: center; gap: 10px; color: var(--muted); font-weight: 600; }
+.online span { width: 10px; height: 10px; border-radius: 99px; background: var(--brand); box-shadow: 0 0 0 7px var(--brand-soft); }
+
+.toolbar-actions { display: flex; gap: 8px; }
+.btn-icon {
+  width: 42px; height: 42px; border: 1px solid var(--line); border-radius: 12px;
+  background: var(--surface); color: var(--ink); display: grid; place-items: center; cursor: pointer;
+}
+.btn-icon svg { width: 18px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; }
+
+.board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.lane { padding: 14px; }
+.lane > header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.lane h2 { margin: 0; font-size: 1rem; }
+.count { color: var(--muted); font-weight: 700; }
+
+.order-card {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 14px;
+  margin-bottom: 10px;
+}
+.order-top { display: flex; justify-content: space-between; gap: 12px; }
+.dish { color: var(--brand); margin: 0; font-weight: 800; letter-spacing: -.01em; }
+.customer { margin: 6px 0 0; font-weight: 600; }
+.meta { margin: 6px 0 0; color: var(--muted); font-size: 13px; }
+.time { color: var(--muted); font-weight: 600; }
+
+.order-bottom { margin-top: 12px; display: flex; justify-content: space-between; gap: 8px; align-items: center; }
+.state { color: var(--muted); display: inline-flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 600; }
+.state i { width: 8px; height: 8px; border-radius: 50%; background: var(--brand); display: inline-block; }
+
+.cta { display: inline-flex; gap: 8px; }
+button { font: inherit; }
+.link, .ghost, .pill {
+  border-radius: 999px;
+  border: 0;
+  height: 36px;
+  padding: 0 14px;
+  cursor: pointer;
+  font-weight: 700;
+}
+.link { background: transparent; color: var(--danger); }
+.ghost { background: var(--surface-strong); color: var(--ink); border: 1px solid var(--line); }
+.pill { background: linear-gradient(135deg, #fff, #e9fff5); color: #091014; }
+
+.compact { padding: 12px 14px; }
+.compact .customer, .compact .meta { font-size: 13px; }
+
+@media (max-width: 980px) {
+  .hero { flex-direction: column; }
+  .hero-stats { min-width: 0; }
+  .board { grid-template-columns: 1fr; }
+}
