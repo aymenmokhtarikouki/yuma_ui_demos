@@ -18,10 +18,16 @@ h1 { margin: 0; font-size: 42px; line-height: 1; font-weight: 700; letter-spacin
 .icon-btn svg { width: 22px; height: 22px; fill: none; stroke: #111; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .notif-dot { position: absolute; top: 8px; right: 8px; width: 7px; height: 7px; border-radius: 50%; background: var(--success-dot); }
 
-.filters-wrap { margin-top: 16px; position: sticky; top: 0; z-index: 8; background: var(--bg); }
-.segmented { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
-.seg { border: 0; border-radius: 999px; background: transparent; color: var(--text-2); font-size: 13px; font-weight: 500; min-height: 36px; }
-.seg.active { background: #E5E7EB; color: var(--text); }
+.mode-switch { margin-top: 16px; }
+.mode-segmented { display: inline-grid; grid-template-columns: repeat(2, minmax(84px, auto)); gap: 4px; background: transparent; border-radius: 999px; padding: 0; min-height: 38px; }
+.mode-tab { border: 0; border-radius: 999px; background: transparent; color: var(--text-2); font-size: 13px; font-weight: 500; min-height: 34px; padding: 0 14px; }
+.mode-tab.active { background: #F3F4F6; color: var(--text); }
+
+.time-slots { margin-top: 12px; position: sticky; top: 0; z-index: 8; background: var(--bg); }
+.time-slots-scroll { display: flex; align-items: center; gap: 12px; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; -ms-overflow-style: none; padding-bottom: 2px; }
+.time-slots-scroll::-webkit-scrollbar { display: none; }
+.time-chip { border: 0; border-radius: 999px; background: transparent; color: var(--text-2); font-size: 13px; font-weight: 500; white-space: nowrap; padding: 8px 12px; scroll-snap-align: start; }
+.time-chip.active { background: #F3F4F6; color: var(--text); }
 
 .live-strip { margin-top: 12px; }
 .live-strip p { margin: 0; display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--text-2); }
@@ -33,6 +39,17 @@ h1 { margin: 0; font-size: 42px; line-height: 1; font-weight: 700; letter-spacin
 .metrics-inline p { margin: 0; }
 .metrics-inline strong { color: var(--text); font-weight: 500; margin-left: 4px; }
 .metrics-inline span { color: #d1d5db; font-size: 11px; }
+
+.content-shell { transition: opacity 180ms ease; }
+.hidden { display: none; }
+
+.prep-view { margin-top: 32px; }
+.prep-card { background: var(--surface); border: 1px solid var(--border-subtle); border-radius: 20px; padding: 20px 16px; margin-bottom: 20px; }
+.prep-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+.prep-title { margin: 0; font-size: 20px; font-weight: 600; line-height: 1.1; }
+.prep-count { margin: 0; font-size: 16px; color: var(--text); font-weight: 600; }
+.prep-meta { margin: 8px 0 0; color: var(--text-2); font-size: 13px; }
+.prep-empty { margin-top: 32px; color: var(--text-2); font-size: 14px; }
 
 .lane { margin-top: 32px; }
 .lane:first-of-type { margin-top: 32px; }

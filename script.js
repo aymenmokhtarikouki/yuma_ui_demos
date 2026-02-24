@@ -4,21 +4,91 @@ const lanes = {
   done: document.querySelector('.lane[data-status="done"] .cards'),
 };
 
+const appShell = document.querySelector('.app-shell');
+const ordersView = document.getElementById('orders-view');
+const prepView = document.getElementById('prep-view');
+const prepList = document.getElementById('prep-list');
+const modeTabs = document.querySelectorAll('.mode-tab');
+const timeChips = document.querySelectorAll('.time-chip');
+
 const sheet = document.getElementById('decline-sheet');
 let pendingDeclineCard = null;
+let currentSlot = 'all';
+let currentMode = 'orders';
 
 const vibrate = (pattern = 15) => navigator.vibrate?.(pattern);
 
+const slotMatch = (card, slot = currentSlot) => slot === 'all' || card.dataset.slot === slot;
+
+const getVisibleCards = (container) => [...(container?.querySelectorAll('.order-card') ?? [])].filter((card) => card.style.display !== 'none');
+
 const updateCounts = () => {
   Object.entries(lanes).forEach(([key, container]) => {
-    const total = container?.querySelectorAll('.order-card').length ?? 0;
+    const total = getVisibleCards(container).length;
     const badge = document.querySelector(`.lane[data-status="${key}"] .count`);
     if (badge) badge.textContent = String(total);
   });
 
-  document.getElementById('sum-new').textContent = lanes.new?.querySelectorAll('.order-card').length ?? 0;
-  document.getElementById('sum-progress').textContent = lanes.inprogress?.querySelectorAll('.order-card').length ?? 0;
-  document.getElementById('sum-done').textContent = lanes.done?.querySelectorAll('.order-card').length ?? 0;
+  document.getElementById('sum-new').textContent = getVisibleCards(lanes.new).length;
+  document.getElementById('sum-progress').textContent = getVisibleCards(lanes.inprogress).length;
+  document.getElementById('sum-done').textContent = getVisibleCards(lanes.done).length;
+};
+
+const filterByTimeSlot = () => {
+  document.querySelectorAll('.order-card').forEach((card) => {
+    card.style.display = slotMatch(card) ? '' : 'none';
+  });
+  updateCounts();
+  if (currentMode === 'prep') renderPrepView();
+};
+
+const renderPrepView = () => {
+  const prepMap = new Map();
+  const activeCards = [
+    ...getVisibleCards(lanes.new),
+    ...getVisibleCards(lanes.inprogress),
+  ];
+
+  activeCards.forEach((card) => {
+    const title = card.querySelector('.title')?.textContent?.trim() || 'Unknown meal';
+    const portions = Number(card.dataset.portions || '1');
+    prepMap.set(title, (prepMap.get(title) || 0) + portions);
+  });
+
+  if (!prepMap.size) {
+    prepList.innerHTML = `<p class="prep-empty">No prep items for this time slot.</p>`;
+    return;
+  }
+
+  prepList.innerHTML = [...prepMap.entries()]
+    .map(
+      ([meal, portions]) => `
+        <article class="prep-card">
+          <div class="prep-top">
+            <p class="prep-title">${meal}</p>
+            <p class="prep-count">${portions} portions</p>
+          </div>
+          <p class="prep-meta">Time slot: ${currentSlot === 'all' ? 'All day' : currentSlot.replace('-', '–')}</p>
+        </article>
+      `,
+    )
+    .join('');
+};
+
+const setMode = (mode) => {
+  currentMode = mode;
+  appShell?.setAttribute('data-mode', mode);
+  modeTabs.forEach((tab) => {
+    const active = tab.dataset.mode === mode;
+    tab.classList.toggle('active', active);
+    tab.setAttribute('aria-selected', active ? 'true' : 'false');
+  });
+
+  const showOrders = mode === 'orders';
+  ordersView?.classList.toggle('hidden', !showOrders);
+  prepView?.classList.toggle('hidden', showOrders);
+
+  if (!showOrders) renderPrepView();
 };
 
 const smoothMove = (card, targetContainer, statusText = 'Completed') => {
@@ -46,7 +116,7 @@ const smoothMove = (card, targetContainer, statusText = 'Completed') => {
     card.style.marginBottom = '';
     targetContainer.prepend(card);
     card.querySelector('.card-body')?.style.setProperty('transform', 'translateX(0)');
-    updateCounts();
+    filterByTimeSlot();
   }, 230);
 };
 
@@ -86,11 +156,29 @@ const declineCard = (card) => {
   card.style.transform = 'scale(.98)';
   setTimeout(() => {
     card.remove();
-    updateCounts();
+    filterByTimeSlot();
   }, 220);
 };
 
 document.addEventListener('click', (event) => {
+  const modeTab = event.target.closest('.mode-tab');
+  if (modeTab) {
+    setMode(modeTab.dataset.mode);
+    return;
+  }
+
+  const timeChip = event.target.closest('.time-chip');
+  if (timeChip) {
+    currentSlot = timeChip.dataset.slot || 'all';
+    timeChips.forEach((chip) => {
+      const active = chip === timeChip;
+      chip.classList.toggle('active', active);
+      chip.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+    filterByTimeSlot();
+    return;
+  }
+
   const card = event.target.closest('.order-card');
   if (!card) return;
 
@@ -128,7 +216,7 @@ const enableSwipe = (card) => {
   });
 
   card.addEventListener('pointermove', (e) => {
-    if (!dragging) return;
+    if (!dragging || card.style.display === 'none') return;
     currentX = Math.max(-140, Math.min(140, e.clientX - startX));
     body.style.transform = `translateX(${currentX}px)`;
 
@@ -179,4 +267,5 @@ const skeletonize = () => {
 
 document.querySelectorAll('.swipe-card').forEach(enableSwipe);
 skeletonize();
-updateCounts();
+filterByTimeSlot();
+setMode('orders');
