@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
@@ -15,157 +15,46 @@
   <body>
     <main class="app-shell">
       <header class="topbar">
-        <div>
-          <p class="eyebrow">Kitchen manager</p>
-          <h1>Orders</h1>
+        <h1>Orders</h1>
+        <div class="topbar-actions">
+          <button class="focus-toggle" id="focusToggle" aria-pressed="false" type="button">Focus mode</button>
+          <button class="icon-btn" aria-label="Notifications" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M14.857 17.082A2.857 2.857 0 0 1 9.143 17.082M4.571 8.51a7.429 7.429 0 0 1 14.858 0v4.286l1.143 2.857H3.429l1.142-2.857V8.51Z" />
+            </svg>
+          </button>
         </div>
-        <button class="icon-btn" aria-label="Notifications" type="button">🔔</button>
       </header>
 
-      <section class="prep-toolbar" aria-label="Preparation mode">
-        <button class="mode active" type="button">Prepare today</button>
-        <button class="mode" type="button">By time slot</button>
-        <button class="mode" type="button">At specific time</button>
-      </section>
+      <section class="time-slots" id="timeSlots" aria-label="Time slots"></section>
 
       <section class="status-strip" aria-label="Store status">
-        <div class="dot"></div>
-        <p>Store online • Auto refresh 20s</p>
+        <div class="dot" aria-hidden="true"></div>
+        <p>Store online · Auto refresh 20s</p>
+        <label class="kitchen-toggle" for="kitchenToggle" aria-label="Kitchen availability">
+          <span class="kitchen-label" id="kitchenLabel">Open</span>
+          <span class="switch">
+            <input id="kitchenToggle" type="checkbox" checked />
+            <span class="switch-track" aria-hidden="true"></span>
+            <span class="switch-thumb" aria-hidden="true"></span>
+          </span>
+        </label>
       </section>
+      <p class="kitchen-banner" id="kitchenBanner" aria-live="polite">Kitchen closed — orders paused</p>
 
-      <details class="lane" data-status="new" open>
-        <summary class="lane-head">
-          <h3>New</h3>
-          <div class="head-right">
-            <span class="count">0</span>
-            <span class="chev" aria-hidden="true">⌄</span>
-          </div>
-        </summary>
-
-        <article class="order-card">
-          <div class="order-meta">
-            <div>
-              <p class="title">Cheesecake Box</p>
-              <p class="sub">Aymen Mokhtari • #297980</p>
-            </div>
-            <p class="time">12:00</p>
-          </div>
-          <div class="type-line">
-            <span class="type-badge type-normal">Simple order</span>
-            <span class="delivery-meta">Pickup • Confirm required</span>
-          </div>
-          <div class="order-footer">
-            <p><span class="dot-sm"></span>Awaiting confirmation</p>
-            <div class="actions">
-              <button class="text-btn" type="button">Decline</button>
-              <button class="black-btn" type="button">Confirm</button>
-            </div>
-          </div>
-        </article>
-
-        <article class="order-card">
-          <div class="order-meta">
-            <div>
-              <p class="title">Chocolate Snacks Bundle</p>
-              <p class="sub">Lina Barakat • #297982</p>
-            </div>
-            <p class="time">12:06</p>
-          </div>
-          <div class="type-line">
-            <span class="type-badge type-normal">Simple order</span>
-            <span class="delivery-meta">Delivery • Confirm required</span>
-          </div>
-          <div class="order-footer">
-            <p><span class="dot-sm"></span>Awaiting confirmation</p>
-            <div class="actions">
-              <button class="text-btn" type="button">Decline</button>
-              <button class="black-btn" type="button">Confirm</button>
-            </div>
-          </div>
-        </article>
-      </details>
-
-      <details class="lane" data-status="inprogress" open>
-        <summary class="lane-head">
-          <h3>In progress</h3>
-          <div class="head-right">
-            <span class="count">0</span>
-            <span class="chev" aria-hidden="true">⌄</span>
-          </div>
-        </summary>
-
-        <article class="order-card">
-          <div class="order-meta">
-            <div>
-              <p class="title">Weekly Meal Plan</p>
-              <p class="sub">Sami Obaid • #297981</p>
-            </div>
-            <p class="time">13:30</p>
-          </div>
-          <div class="type-line">
-            <span class="type-badge type-weekly">Weekly plan</span>
-            <span class="delivery-meta">Scheduled delivery • Tue, 13:30</span>
-          </div>
-          <div class="order-footer">
-            <p><span class="dot-sm"></span>No order confirm • Delivery confirm needed</p>
-            <div class="actions">
-              <button class="light-btn" type="button">Confirm delivery</button>
-            </div>
-          </div>
-        </article>
-
-        <article class="order-card">
-          <div class="order-meta">
-            <div>
-              <p class="title">Daily Hot Meal</p>
-              <p class="sub">Nour Haddad • #297977</p>
-            </div>
-            <p class="time">12:45</p>
-          </div>
-          <div class="type-line">
-            <span class="type-badge type-hot">Hot meal</span>
-            <span class="delivery-meta">Scheduled pickup • Today, 12:45</span>
-          </div>
-          <div class="order-footer">
-            <p><span class="dot-sm"></span>No order confirm • Pickup confirm needed</p>
-            <div class="actions">
-              <button class="light-btn" type="button">Confirm pickup</button>
-            </div>
-          </div>
-        </article>
-      </details>
-
-      <details class="lane" data-status="done" open>
-        <summary class="lane-head">
-          <h3>Completed</h3>
-          <div class="head-right">
-            <span class="count">0</span>
-            <span class="chev" aria-hidden="true">⌄</span>
-          </div>
-        </summary>
-
-        <article class="order-card compact">
-          <div class="order-meta">
-            <div>
-              <p class="title">Falafel Wrap Combo</p>
-              <p class="sub">Youssef Naim • #297965</p>
-            </div>
-            <p class="time">11:14</p>
-          </div>
-        </article>
-
-        <article class="order-card compact">
-          <div class="order-meta">
-            <div>
-              <p class="title">Fruit Bowl Pack</p>
-              <p class="sub">Nour Haddad • #297970</p>
-            </div>
-            <p class="time">11:40</p>
-          </div>
-        </article>
-      </details>
+      <section id="ordersRoot" aria-live="polite"></section>
     </main>
 
+    <div class="sheet-backdrop" id="sheetBackdrop" hidden></div>
+    <section class="decline-sheet" id="declineSheet" aria-label="Decline order" hidden>
+      <p>Decline this order?</p>
+      <div class="sheet-actions">
+        <button class="sheet-btn" type="button" data-sheet-cancel>Cancel</button>
+        <button class="sheet-btn danger" type="button" data-sheet-confirm>Decline order</button>
+      </div>
+    </section>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
     <script src="script.js"></script>
   </body>
 </html>
