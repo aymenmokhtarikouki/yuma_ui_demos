@@ -734,38 +734,40 @@ body.kitchen-closed .kitchen-label {
 
 .weekday-strip {
   margin-top: 18px;
-  /* All 7 pills fit in one row using equal-width grid columns (Req). */
+  /* Tall-pill reference row: all 7 capsules fit in one row, no horizontal scrolling (Req). */
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
   gap: 6px;
+  margin-left: -2px;
+  margin-right: -2px;
   padding: 2px 0;
 }
 
 .day-pill {
-  /* No border implementation: tonal surface + ambient shadow only (Req). */
+  /* Tall vertical capsule style based on attached reference; no border implementation (Req). */
   border: 0;
   width: 100%;
-  height: 50px;
-  padding: 6px 4px;
-  border-radius: 16px;
-  background: #f7f8f8;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.025), 0 2px 6px rgba(0, 0, 0, 0.035);
+  height: 78px;
+  padding: 4px 3px;
+  border-radius: 999px;
+  background: #f8f8f8;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02), 0 2px 6px rgba(0, 0, 0, 0.03);
   color: #0f172a;
   display: inline-flex;
   /* Improved pill typography centering: day + count stack is optically centered (Req). */
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1px;
+  gap: 0;
   text-align: center;
   white-space: nowrap;
   transition: transform 180ms ease-in-out, box-shadow 180ms ease-in-out, background-color 180ms ease-in-out, color 180ms ease-in-out;
 }
 
 .day-pill.selected {
-  background: #eaf8f1;
-  color: #16a34a;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03), 0 3px 8px rgba(0, 0, 0, 0.045);
+  background: #ffffff;
+  color: #111827;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04), 0 6px 14px rgba(0, 0, 0, 0.05);
   transform: translateY(-1px);
 }
 
@@ -777,21 +779,21 @@ body.kitchen-closed .kitchen-label {
 .day-pill-day {
   font-size: 10.5px;
   font-weight: 500;
-  line-height: 1.05;
+  line-height: 1;
   color: #6b7280;
 }
 
 .day-pill-count {
-  font-size: 13px;
+  font-size: 15.5px;
   font-weight: 600;
-  line-height: 1.1;
+  line-height: 1.02;
   color: #1f2937;
   white-space: nowrap;
 }
 
 .day-pill.selected .day-pill-day,
 .day-pill.selected .day-pill-count {
-  color: #166534;
+  color: #111827;
 }
 
 .prep-summary {
