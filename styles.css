@@ -238,6 +238,11 @@ body.kitchen-closed .order-row.rail-new::after {
   background: var(--bg-surface);
 }
 
+.section + .section {
+  border-top: 1px solid var(--line-hair);
+  padding-top: 8px;
+}
+
 .section-header {
   padding: 0 16px 0 60px;
   position: relative;
@@ -328,22 +333,19 @@ body.kitchen-closed .order-row.rail-new::after {
 .order-row {
   min-height: 96px;
   padding: var(--space-row-v) var(--space-row-h);
+  margin-bottom: 8px;
   background: var(--bg-surface);
+  border: 1px solid var(--row-border);
+  border-radius: var(--row-radius);
   position: relative;
   display: grid;
-  grid-template-columns: 32px minmax(0, 1fr);
+  grid-template-columns: 36px minmax(0, 1fr);
   column-gap: 12px;
   transition: transform 200ms ease-in-out, opacity 200ms ease-in-out, background-color 200ms ease-in-out;
 }
 
 .order-row + .order-row::before {
-  content: "";
-  position: absolute;
-  left: 60px;
-  right: 0;
-  bottom: 0;
-  height: 1px;
-  background: rgba(15, 23, 42, 0.06);
+  content: none;
 }
 
 .order-row:active {
@@ -379,7 +381,7 @@ body.kitchen-closed .order-row.rail-new::after {
   align-items: flex-start;
   justify-content: center;
   color: rgba(107, 114, 128, 0.9);
-  padding-top: 1px;
+  padding-top: 2px;
 }
 
 .row-content {
@@ -389,7 +391,7 @@ body.kitchen-closed .order-row.rail-new::after {
 
 .order-title {
   margin: 0;
-  padding-right: calc(min(172px, 44vw) + 16px);
+  padding-right: calc(min(172px, 44vw) + var(--row-chevron-space) + 8px);
   font-size: var(--font-title);
   line-height: 1.25;
   font-weight: 600;
@@ -400,7 +402,7 @@ body.kitchen-closed .order-row.rail-new::after {
 .order-meta {
   margin: var(--space-title-meta) 0 0;
   opacity: 0.85;
-  padding-right: calc(min(172px, 44vw) + 16px);
+  padding-right: calc(min(172px, 44vw) + var(--row-chevron-space) + 8px);
   font-size: var(--font-meta);
   font-weight: 500;
   line-height: 1.35;
@@ -451,7 +453,7 @@ body.kitchen-closed .order-row.rail-new::after {
 .time {
   position: absolute;
   top: 10px;
-  right: 16px;
+  right: calc(16px + var(--row-chevron-space));
   margin: 0;
   font-size: var(--font-time);
   font-weight: 500;
@@ -464,6 +466,18 @@ body.kitchen-closed .order-row.rail-new::after {
 .time-approaching { color: #475569; opacity: 1; }
 .time-urgent { color: #334155; opacity: 1; }
 .time-late { color: var(--color-danger-soft); opacity: 1; }
+
+.row-chevron {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  width: var(--row-chevron-space);
+  transform: translateY(-50%);
+  text-align: center;
+  font-size: 18px;
+  line-height: 1;
+  color: #94a3b8;
+}
 
 .row-actions {
   margin-top: var(--space-status-actions);
@@ -485,7 +499,7 @@ body.kitchen-closed .order-row.rail-new::after {
 
 .decline-btn,
 .primary-btn {
-  height: var(--btn-height);
+  height: 34px;
   border: 0;
   border-radius: var(--btn-radius);
   font-size: var(--font-meta);

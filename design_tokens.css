@@ -14,6 +14,10 @@
 
   --line-hair: rgba(15, 23, 42, 0.06);
 
+  --row-border: #e5e7eb;
+  --row-radius: 14px;
+  --row-chevron-space: 36px;
+
   --font-title: 18px;
   --font-meta: 15px;
   --font-status: 14.5px;

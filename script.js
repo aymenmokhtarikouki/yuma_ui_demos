@@ -247,10 +247,11 @@ function createRow(order) {
     <div class="row-content">
       <p class="order-title">${order.title}</p>
       <p class="order-meta">${order.customer} · #${order.id} · ${order.type}</p>
-      <p class="order-status"><span class="status-dot ${statusClass} ${toneClass === "time-urgent" || toneClass === "time-late" ? "urgent-dot" : ""}"></span>${conciseStatus(order)}</p>
+      <p class="order-status"><span class="status-dot ${statusClass} ${toneClass === "time-late" ? "urgent-dot" : ""}"></span>${conciseStatus(order)}</p>
       ${actionsHtml}
     </div>
     <p class="time ${toneClass}">${displayTime(order)}</p>
+    <span class="row-chevron" aria-hidden="true">›</span>
   `;
 
   bindRowGestures(row, order);
@@ -268,6 +269,12 @@ function createRow(order) {
       }, state.reducedMotion ? 0 : 90);
     });
   }
+
+  row.addEventListener("click", (event) => {
+    if (event.target.closest('.row-actions')) return;
+    showToast(`Open order #${order.id}`);
+    vibrate(8);
+  });
 
   return row;
 }
