@@ -674,39 +674,51 @@ class _SalesChannelsPageState extends State<SalesChannelsPage> {
                     },
                     borderRadius: BorderRadius.circular(14),
                     child: Ink(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(color: const Color(0xFFF3F4F6), borderRadius: BorderRadius.circular(14)),
-                      child: const Icon(Icons.add, color: Color(0xFF0F172A)),
+                      width: 36,
+                      height: 36,
+                      decoration: BoxDecoration(color: const Color(0xFFF8FAFC), borderRadius: BorderRadius.circular(12)),
+                      child: const Icon(Icons.add, size: 20, color: Color(0xFF0F172A)),
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(
-              height: 42,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                children: SalesFilter.values.map((filter) {
-                  final selected = _filter == filter;
-                  return Padding(
-                    padding: const EdgeInsets.only(right: 8),
-                    child: ChoiceChip(
-                      label: Text(filter.label),
-                      selected: selected,
-                      onSelected: (_) => setState(() => _filter = filter),
-                      backgroundColor: const Color(0xFFF5F6F7),
-                      selectedColor: const Color(0xFFEAF8F1),
-                      shape: const StadiumBorder(side: BorderSide(color: Colors.transparent)),
-                      labelStyle: TextStyle(
-                        fontSize: 13,
-                        fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
-                        color: selected ? const Color(0xFF166534) : const Color(0xFF475569),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Container(
+                height: 34,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF8FAFC),
+                  borderRadius: BorderRadius.circular(999),
+                ),
+                child: Row(
+                  children: SalesFilter.values.map((filter) {
+                    final selected = _filter == filter;
+                    return Expanded(
+                      child: GestureDetector(
+                        onTap: () => setState(() => _filter = filter),
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 180),
+                          curve: Curves.easeInOut,
+                          margin: const EdgeInsets.all(2),
+                          decoration: BoxDecoration(
+                            color: selected ? Colors.white : Colors.transparent,
+                            borderRadius: BorderRadius.circular(999),
+                          ),
+                          alignment: Alignment.center,
+                          child: Text(
+                            filter.label,
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
+                              color: selected ? const Color(0xFF0F172A) : const Color(0xFF64748B),
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  );
-                }).toList(),
+                    );
+                  }).toList(),
+                ),
               ),
             ),
             const SizedBox(height: 12),
@@ -751,40 +763,53 @@ class _SalesChannelTile extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(16),
-          boxShadow: const [
-            BoxShadow(color: Color(0x0F000000), blurRadius: 2, offset: Offset(0, 1)),
-            BoxShadow(color: Color(0x12000000), blurRadius: 10, offset: Offset(0, 4)),
-          ],
+          border: Border.all(color: const Color(0x140F172A)),
         ),
         child: Row(
           children: [
             Container(
-              width: 36,
-              height: 36,
-              decoration: const BoxDecoration(color: Color(0xFFF3F4F6), shape: BoxShape.circle),
-              child: Icon(channel.type.icon, size: 19, color: const Color(0xFF64748B)),
+              width: 2,
+              height: 52,
+              decoration: BoxDecoration(
+                color: channel.type.accentColor,
+                borderRadius: BorderRadius.circular(2),
+              ),
             ),
-            const SizedBox(width: 12),
+            const SizedBox(width: 10),
+            Container(
+              width: 28,
+              height: 28,
+              decoration: const BoxDecoration(color: Color(0xFFF3F4F6), shape: BoxShape.circle),
+              child: Icon(channel.type.icon, size: 17, color: const Color(0xFF64748B)),
+            ),
+            const SizedBox(width: 10),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Text(
+                    channel.name,
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Color(0xFF0F172A)),
+                  ),
+                  const SizedBox(height: 4),
                   Row(
                     children: [
-                      Expanded(
-                        child: Text(
-                          channel.name,
-                          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Color(0xFF0F172A)),
-                        ),
+                      Text(
+                        channel.type.label,
+                        style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: Color(0xFF64748B)),
                       ),
-                      _Tag(text: channel.type.label, bg: const Color(0xFFF1F5F9), fg: const Color(0xFF334155)),
+                      const SizedBox(width: 8),
+                      Container(width: 6, height: 6, decoration: BoxDecoration(color: channel.status.textColor, shape: BoxShape.circle)),
+                      const SizedBox(width: 5),
+                      Text(
+                        channel.status.label,
+                        style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: channel.status.textColor),
+                      ),
                     ],
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 4),
                   Row(
                     children: [
-                      _Tag(text: channel.status.label, bg: channel.status.bgColor, fg: channel.status.textColor),
-                      const SizedBox(width: 8),
                       Expanded(
                         child: Text(
                           channel.ruleText,
@@ -817,23 +842,6 @@ class _SalesChannelTile extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class _Tag extends StatelessWidget {
-  const _Tag({required this.text, required this.bg, required this.fg});
-
-  final String text;
-  final Color bg;
-  final Color fg;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-      decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(999)),
-      child: Text(text, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: fg)),
     );
   }
 }
@@ -894,6 +902,19 @@ enum SalesChannelType {
   const SalesChannelType(this.label, this.icon);
   final String label;
   final IconData icon;
+}
+
+extension SalesChannelTypeStyle on SalesChannelType {
+  Color get accentColor {
+    switch (this) {
+      case SalesChannelType.tiffin:
+        return const Color(0xFF10B981);
+      case SalesChannelType.weeklyPlan:
+        return const Color(0xFF334155);
+      case SalesChannelType.shop:
+        return const Color(0xFFF59E0B);
+    }
+  }
 }
 
 extension SalesFilterStyle on SalesFilter {
