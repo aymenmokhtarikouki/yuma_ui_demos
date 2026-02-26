@@ -30,14 +30,14 @@ body.focus-mode {
   max-width: 430px;
   margin: 0 auto;
   min-height: 100dvh;
-  padding: 16px 0 34px;
+  padding: 16px 16px 34px;
 }
 
 .topbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 16px;
+  padding: 0;
   background: #ffffff;
 }
 
@@ -99,7 +99,7 @@ h1 {
   gap: 8px;
   overflow-x: auto;
   scrollbar-width: none;
-  padding: 0 24px 2px;
+  padding: 0 8px 2px;
 }
 
 .time-slots::-webkit-scrollbar { display: none; }
@@ -126,7 +126,7 @@ h1 {
 
 .status-strip {
   background: #ffffff;
-  margin: 16px 16px 0;
+  margin: 16px 0 0;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -213,7 +213,7 @@ h1 {
 
 .kitchen-banner {
   min-height: 24px;
-  margin: 8px 16px 0;
+  margin: 8px 0 0;
   font-size: 13px;
   font-weight: 500;
   color: #b45309;
@@ -244,7 +244,7 @@ body.kitchen-closed .order-row.rail-new::after {
 }
 
 .section-header {
-  padding: 0 16px 0 60px;
+  padding: 0 0 0 60px;
   position: relative;
 }
 
@@ -333,10 +333,11 @@ body.kitchen-closed .order-row.rail-new::after {
 .order-row {
   min-height: 96px;
   padding: var(--space-row-v) var(--space-row-h);
-  margin-bottom: 8px;
+  margin-bottom: var(--space-tile-gap);
   background: var(--bg-surface);
   border: 1px solid var(--row-border);
   border-radius: var(--row-radius);
+  box-shadow: var(--row-shadow);
   position: relative;
   display: grid;
   grid-template-columns: 36px minmax(0, 1fr);
@@ -356,10 +357,10 @@ body.kitchen-closed .order-row.rail-new::after {
 .order-row.rail-new::after {
   content: "";
   position: absolute;
-  left: 4px;
-  top: 18px;
-  bottom: 18px;
-  width: 1.5px;
+  left: 11px;
+  top: 10px;
+  bottom: 10px;
+  width: 3px;
   border-radius: 2px;
   opacity: 1;
   background: #16a34a;
@@ -453,7 +454,7 @@ body.kitchen-closed .order-row.rail-new::after {
 .time {
   position: absolute;
   top: 10px;
-  right: calc(16px + var(--row-chevron-space));
+  right: calc(var(--space-row-h) + var(--row-chevron-space));
   margin: 0;
   font-size: var(--font-time);
   font-weight: 500;
@@ -469,7 +470,7 @@ body.kitchen-closed .order-row.rail-new::after {
 
 .row-chevron {
   position: absolute;
-  right: 16px;
+  right: var(--space-row-h);
   top: 50%;
   width: var(--row-chevron-space);
   transform: translateY(-50%);

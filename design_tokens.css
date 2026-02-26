@@ -15,8 +15,9 @@
   --line-hair: rgba(15, 23, 42, 0.06);
 
   --row-border: #e5e7eb;
-  --row-radius: 14px;
-  --row-chevron-space: 36px;
+  --row-radius: 15px;
+  --row-chevron-space: 40px;
+  --row-shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 6px 16px rgba(0, 0, 0, 0.06);
 
   --font-title: 18px;
   --font-meta: 15px;
@@ -26,6 +27,7 @@
 
   --space-row-v: 22px;
   --space-row-h: 16px;
+  --space-tile-gap: 10px;
   --space-title-meta: 10px;
   --space-meta-status: 12px;
   --space-status-actions: 20px;
