@@ -48,8 +48,8 @@ const weekdayStrip = document.getElementById("weekdayStrip");
 const prepSummary = document.getElementById("prepSummary");
 const prepList = document.getElementById("prepList");
 
-// Focus Mode Prep Page — weekday selector labels (Req. 3).
-const weekdayLabels = ["Mo", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+// Focus Mode Prep Page — short weekday abbreviations (Req: short format Mo/Tu/We/Th/Fr/Sa/Su).
+const weekdayLabels = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
 
 // Focus Mode Prep Page — aggregated prep data model by weekday (Req. Data Model).
 const prepByDay = {
@@ -158,7 +158,12 @@ function renderWeekdays() {
     const isPast = index < today;
     const isSelected = state.selectedPrepDay === index;
     btn.className = `day-pill ${isPast ? "past" : ""} ${isSelected ? "selected" : ""}`;
-    btn.textContent = label;
+    // Open prep lines metric (Req): count grouped meal lines still not completed for this day.
+    const openLinesCount = getOpenPrepLinesCount(index);
+    // Compact 9+ cap for weekday workload count (Req).
+    const displayCount = openLinesCount > 9 ? "9+" : String(openLinesCount);
+    // Stacked day + number layout (Req).
+    btn.innerHTML = `<span class="day-pill-day">${label}</span><span class="day-pill-count">${displayCount}</span>`;
     btn.setAttribute("aria-pressed", isSelected ? "true" : "false");
     btn.addEventListener("click", () => {
       state.selectedPrepDay = index;
@@ -167,6 +172,11 @@ function renderWeekdays() {
     });
     weekdayStrip.appendChild(btn);
   });
+}
+
+function getOpenPrepLinesCount(dayIndex) {
+  const items = prepByDay[dayIndex] || [];
+  return items.filter((item) => item.prepared < item.total).length;
 }
 
 function switchPrepDay() {

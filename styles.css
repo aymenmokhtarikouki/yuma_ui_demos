@@ -728,7 +728,7 @@ body.kitchen-closed .kitchen-label {
 .weekday-strip {
   margin-top: 18px;
   display: flex;
-  gap: 9px;
+  gap: 8px;
   overflow-x: auto;
   scrollbar-width: none;
   padding: 2px 0;
@@ -737,28 +737,52 @@ body.kitchen-closed .kitchen-label {
 .weekday-strip::-webkit-scrollbar { display: none; }
 
 .day-pill {
+  /* No border implementation: tonal surface + ambient shadow only (Req). */
   border: 0;
-  min-height: 38px;
-  padding: 0 14px;
-  border-radius: 999px;
-  background: #fff;
-  box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+  min-width: 52px;
+  min-height: 48px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: #f6f6f6;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 3px 8px rgba(0, 0, 0, 0.05);
   color: #0f172a;
-  font-size: 14px;
-  font-weight: 500;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  text-align: center;
   white-space: nowrap;
+  transition: transform 180ms ease-in-out, box-shadow 180ms ease-in-out, background-color 180ms ease-in-out, color 180ms ease-in-out;
 }
 
 .day-pill.selected {
-  background: rgba(16, 185, 129, 0.12);
+  background: rgba(16, 185, 129, 0.14);
   color: #16a34a;
-  font-weight: 600;
-  box-shadow: none;
+  box-shadow: 0 2px 5px rgba(16, 185, 129, 0.18), 0 4px 10px rgba(0, 0, 0, 0.06);
+  transform: translateY(-1px);
 }
 
 .day-pill.past {
   color: #94a3b8;
-  opacity: 0.65;
+  opacity: 0.7;
+}
+
+.day-pill-day {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.day-pill-count {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.05;
+  color: #1f2937;
+}
+
+.day-pill.selected .day-pill-count {
+  color: #166534;
 }
 
 .prep-summary {
