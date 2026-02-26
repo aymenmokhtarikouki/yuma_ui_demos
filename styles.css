@@ -346,7 +346,7 @@ body.kitchen-closed .order-row.rail-new::after {
 }
 
 .order-row.rail-new {
-  padding-left: 25px;
+  padding-left: 23px;
 }
 
 .order-row + .order-row::before {
@@ -361,7 +361,7 @@ body.kitchen-closed .order-row.rail-new::after {
 .order-row.rail-new::after {
   content: "";
   position: absolute;
-  left: 10px;
+  left: 8px;
   top: 10px;
   bottom: 10px;
   width: 3px;
@@ -482,7 +482,7 @@ body.kitchen-closed .order-row.rail-new::after {
   font-size: 18px;
   line-height: 1;
   color: #94a3b8;
-  opacity: 0.55;
+  opacity: 0.5;
 }
 
 .row-actions {
