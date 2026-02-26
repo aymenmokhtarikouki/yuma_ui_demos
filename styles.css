@@ -131,7 +131,7 @@ h1 {
   align-items: center;
   gap: 8px;
   padding: 0 0 12px;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 0;
 }
 
 .dot {
