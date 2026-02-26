@@ -68,8 +68,8 @@ h1 {
 
 .icon-btn svg,
 .order-icon svg {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   fill: none;
   stroke: currentColor;
   stroke-width: 1.5;
@@ -238,15 +238,6 @@ body.kitchen-closed .order-row.rail-new::after {
   background: var(--bg-surface);
 }
 
-.section-new,
-.section-done {
-  background: var(--bg-band);
-}
-
-.section-inprogress {
-  background: var(--bg-surface);
-}
-
 .section-header {
   padding: 0 16px 0 60px;
   position: relative;
@@ -303,7 +294,7 @@ body.kitchen-closed .order-row.rail-new::after {
   margin: 0;
   font-size: var(--font-section);
   font-weight: 700;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--text-section);
 }
@@ -364,10 +355,10 @@ body.kitchen-closed .order-row.rail-new::after {
   content: "";
   position: absolute;
   left: 4px;
-  top: 14px;
-  bottom: 14px;
-  width: 2px;
-  border-radius: 3px;
+  top: 18px;
+  bottom: 18px;
+  width: 1.5px;
+  border-radius: 2px;
   opacity: 1;
   background: #16a34a;
 }
@@ -423,7 +414,7 @@ body.kitchen-closed .order-row.rail-new::after {
   margin: var(--space-meta-status) 0 0;
   opacity: 0.9;
   font-size: var(--font-status);
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1.3;
   color: #475569;
   display: inline-flex;
@@ -470,8 +461,8 @@ body.kitchen-closed .order-row.rail-new::after {
   font-variant-numeric: tabular-nums;
 }
 
-.time-approaching { color: var(--color-amber-soft); opacity: 1; }
-.time-urgent { color: var(--color-orange-soft); opacity: 1; }
+.time-approaching { color: #475569; opacity: 1; }
+.time-urgent { color: #334155; opacity: 1; }
 .time-late { color: var(--color-danger-soft); opacity: 1; }
 
 .row-actions {
@@ -503,7 +494,7 @@ body.kitchen-closed .order-row.rail-new::after {
 }
 
 .decline-btn {
-  background: transparent;
+  background: #f3f4f6;
   color: #6b7280;
   opacity: 1;
 }
@@ -517,6 +508,7 @@ body.kitchen-closed .order-row.rail-new::after {
 .primary-btn {
   background: var(--color-primary);
   color: #fff;
+  font-weight: 600;
   min-width: 120px;
   max-width: 172px;
   width: 100%;

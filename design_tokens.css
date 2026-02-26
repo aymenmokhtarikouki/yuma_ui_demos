@@ -1,33 +1,30 @@
 :root {
   --bg-page: #ffffff;
   --bg-surface: #ffffff;
-  --bg-band: #f8fafc;
 
   --text-primary: #0f172a;
   --text-secondary: #64748b;
   --text-tertiary: #6b7280;
-  --text-section: #64748b;
+  --text-section: #6b7280;
   --text-section-strong: #374151;
 
   --color-primary: #10b981;
   --color-primary-press: #0e9f72;
-  --color-danger-soft: #dc6f6f;
-  --color-amber-soft: #d3a24a;
-  --color-orange-soft: #c7792a;
+  --color-danger-soft: #d66f6f;
 
   --line-hair: rgba(15, 23, 42, 0.06);
 
-  --font-title: 17px;
-  --font-meta: 14.5px;
-  --font-status: 14px;
-  --font-time: 14px;
-  --font-section: 13px;
+  --font-title: 18px;
+  --font-meta: 15px;
+  --font-status: 14.5px;
+  --font-time: 15px;
+  --font-section: 14px;
 
-  --space-row-v: 18px;
+  --space-row-v: 22px;
   --space-row-h: 16px;
-  --space-title-meta: 8px;
-  --space-meta-status: 10px;
-  --space-status-actions: 16px;
+  --space-title-meta: 10px;
+  --space-meta-status: 12px;
+  --space-status-actions: 20px;
 
   --btn-height: 34px;
   --btn-radius: 19px;
