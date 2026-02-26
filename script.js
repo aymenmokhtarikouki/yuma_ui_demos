@@ -226,12 +226,10 @@ function statusDotClass(order, toneClass) {
 function createRow(order) {
   const row = document.createElement("article");
 
-  const railClass = order.status === "new" ? "rail-new" : "";
-
   const toneClass = timeToneClass(order.time);
   const statusClass = statusDotClass(order, toneClass);
 
-  row.className = `order-row row-${order.status} ${railClass}`;
+  row.className = `order-row row-${order.status}`;
   row.dataset.id = order.id;
 
   let actionsHtml = "";
@@ -246,7 +244,7 @@ function createRow(order) {
     <div class="order-icon" aria-hidden="true">${icon(order.icon)}</div>
     <div class="row-content">
       <p class="order-title">${order.title}</p>
-      <p class="order-meta">${order.customer} · #${order.id} · ${order.type}</p>
+      <p class="order-meta"><span class="meta-customer">${order.customer}</span><span class="meta-fixed"> · #${order.id} · ${order.type}</span></p>
       <p class="order-status"><span class="status-dot ${statusClass} ${toneClass === "time-late" ? "urgent-dot" : ""}"></span>${conciseStatus(order)}</p>
       ${actionsHtml}
     </div>
