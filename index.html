@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main class="app-shell" id="ordersPage">
+    <main class="app-shell" id="ordersPage" data-tab-page="home">
       <header class="topbar">
         <h1>Orders</h1>
         <div class="topbar-actions">
@@ -43,6 +43,29 @@
       <p class="kitchen-banner" id="kitchenBanner" aria-live="polite">Kitchen closed — orders paused</p>
 
       <section id="ordersRoot" aria-live="polite"></section>
+    </main>
+
+    <main class="app-shell app-hidden" id="salesPage" data-tab-page="sales">
+      <header class="topbar sales-topbar">
+        <div>
+          <h1>Sales</h1>
+          <p class="sales-subtitle">Manage what customers can order</p>
+        </div>
+        <button class="icon-btn sales-add-btn" id="salesAddBtn" aria-label="Add sales channel" type="button">+</button>
+      </header>
+
+      <section class="sales-filters" id="salesFilters" aria-label="Sales filters"></section>
+      <section class="sales-list" id="salesList" aria-live="polite"></section>
+    </main>
+
+    <main class="app-shell app-hidden" id="mealsPage" data-tab-page="meals">
+      <header class="topbar"><h1>Meals</h1></header>
+      <section class="placeholder-page">Meals page</section>
+    </main>
+
+    <main class="app-shell app-hidden" id="profilePage" data-tab-page="profile">
+      <header class="topbar"><h1>Profile</h1></header>
+      <section class="placeholder-page">Profile page</section>
     </main>
 
     <section class="focus-prep-page" id="focusPrepPage" aria-label="Focus Mode preparation overview">
@@ -77,6 +100,24 @@
     </section>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <nav class="bottom-nav" id="bottomNav" aria-label="Main navigation">
+      <button class="nav-item active" type="button" data-tab="home" aria-current="page">
+        <span class="nav-indicator"></span><span>🏠</span><small>Home</small>
+      </button>
+      <button class="nav-item" type="button" data-tab="sales">
+        <span class="nav-indicator"></span><span>🏬</span><small>Sales</small>
+      </button>
+      <button class="nav-item" type="button" data-tab="orders">
+        <span class="nav-indicator"></span><span>🧾</span><small>Orders</small>
+      </button>
+      <button class="nav-item" type="button" data-tab="meals">
+        <span class="nav-indicator"></span><span>🍽️</span><small>Meals</small>
+      </button>
+      <button class="nav-item" type="button" data-tab="profile">
+        <span class="nav-indicator"></span><span>👤</span><small>Profile</small>
+      </button>
+    </nav>
     <script src="script.js"></script>
   </body>
 </html>

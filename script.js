@@ -33,6 +33,7 @@ const sections = [["new", "New"], ["inprogress", "In progress"], ["done", "Compl
 
 const slotRoot = document.getElementById("timeSlots");
 const ordersRoot = document.getElementById("ordersRoot");
+const ordersPage = document.getElementById("ordersPage");
 const focusToggle = document.getElementById("focusToggle");
 const toast = document.getElementById("toast");
 const declineSheet = document.getElementById("declineSheet");
@@ -42,6 +43,13 @@ const sheetConfirm = document.querySelector("[data-sheet-confirm]");
 const kitchenToggle = document.getElementById("kitchenToggle");
 const kitchenLabel = document.getElementById("kitchenLabel");
 const kitchenBanner = document.getElementById("kitchenBanner");
+const salesPage = document.getElementById("salesPage");
+const mealsPage = document.getElementById("mealsPage");
+const profilePage = document.getElementById("profilePage");
+const salesFilters = document.getElementById("salesFilters");
+const salesList = document.getElementById("salesList");
+const salesAddBtn = document.getElementById("salesAddBtn");
+const bottomNav = document.getElementById("bottomNav");
 const focusPrepPage = document.getElementById("focusPrepPage");
 const focusBack = document.getElementById("focusBack");
 const weekdayStrip = document.getElementById("weekdayStrip");
@@ -86,8 +94,19 @@ const prepByDay = {
   6: []
 };
 
+const salesChannels = [
+  { id: "ch_001", name: "Indian food", type: "Tiffin", status: "Active", ruleText: "Weekdays • Preorder 24h", kpiValue: 34, kpiLabel: "Orders today", icon: "🍱" },
+  { id: "ch_002", name: "Office Tiffin", type: "Tiffin", status: "Paused", ruleText: "Every day • Preorder 24h", kpiValue: 0, kpiLabel: "Orders today", icon: "🍱" },
+  { id: "ch_003", name: "Weekly Lunch Plan", type: "Weekly Plan", status: "Active", ruleText: "5 meals/week • Mon–Fri", kpiValue: 52, kpiLabel: "Subscribers", icon: "📅" },
+  { id: "ch_004", name: "Family Meal Plan", type: "Weekly Plan", status: "Draft", ruleText: "7 meals/week • Mon–Sun", kpiValue: 12, kpiLabel: "Subscribers", icon: "📅" },
+  { id: "ch_005", name: "Yuma Shop", type: "Shop", status: "Active", ruleText: "Order anytime • 48 items", kpiValue: 18, kpiLabel: "Orders today", icon: "🛍️" },
+  { id: "ch_006", name: "Healthy Snacks Shop", type: "Shop", status: "Active", ruleText: "Order anytime • 31 items", kpiValue: 11, kpiLabel: "Orders today", icon: "🛍️" }
+];
+
 // Today selected by default for the weekday selector (Req).
 state.selectedPrepDay = getTodayWeekdayIndex();
+state.activeTab = "home";
+state.salesFilter = "All";
 
 renderSlots();
 renderOrders();
@@ -98,8 +117,13 @@ bindFocusPrepNavigation();
 renderWeekdays();
 renderPrepSummary();
 renderPrepList();
+bindBottomNav();
+renderSalesFilters();
+renderSalesList();
 setupDemoIncomingOrder();
 setupAutoRefresh();
+
+salesAddBtn?.addEventListener("click", () => showToast("Create channel (placeholder)"));
 
 function renderSlots() {
   slotRoot.innerHTML = "";
@@ -269,6 +293,67 @@ function markPrepDone(item) {
   renderPrepList();
   showToast(`${item.dish} completed`);
   vibrate(12);
+}
+
+function bindBottomNav() {
+  bottomNav?.addEventListener("click", (event) => {
+    const item = event.target.closest(".nav-item");
+    if (!item) return;
+    const tab = item.dataset.tab;
+    setActiveTab(tab);
+  });
+}
+
+function setActiveTab(tab) {
+  state.activeTab = tab;
+  const normalized = tab === "orders" ? "home" : tab;
+  ordersPage.classList.toggle("app-hidden", normalized !== "home");
+  salesPage.classList.toggle("app-hidden", normalized !== "sales");
+  mealsPage.classList.toggle("app-hidden", normalized !== "meals");
+  profilePage.classList.toggle("app-hidden", normalized !== "profile");
+
+  document.querySelectorAll(".nav-item").forEach((el) => {
+    const selected = el.dataset.tab === tab;
+    el.classList.toggle("active", selected);
+    el.setAttribute("aria-current", selected ? "page" : "false");
+  });
+}
+
+function renderSalesFilters() {
+  const filters = ["All", "Active", "Draft", "Paused"];
+  salesFilters.innerHTML = "";
+  filters.forEach((filter) => {
+    const chip = document.createElement("button");
+    chip.type = "button";
+    chip.className = `sales-filter-chip ${state.salesFilter === filter ? "selected" : ""}`;
+    chip.textContent = filter;
+    chip.addEventListener("click", () => {
+      state.salesFilter = filter;
+      renderSalesFilters();
+      renderSalesList();
+    });
+    salesFilters.appendChild(chip);
+  });
+}
+
+function renderSalesList() {
+  const list = state.salesFilter === "All" ? salesChannels : salesChannels.filter((c) => c.status === state.salesFilter);
+  salesList.innerHTML = "";
+  list.forEach((channel) => {
+    const row = document.createElement("article");
+    row.className = "sales-card";
+    row.innerHTML = `
+      <div class="sales-icon">${channel.icon}</div>
+      <div class="sales-main">
+        <div class="sales-title-row"><p class="sales-title">${channel.name}</p><span class="sales-pill">${channel.type}</span></div>
+        <div class="sales-meta-row"><span class="sales-pill sales-status">${channel.status}</span><p class="sales-rule">${channel.ruleText}</p></div>
+      </div>
+      <div class="sales-kpi"><strong>${channel.kpiValue}</strong><small>${channel.kpiLabel}</small></div>
+      <span class="sales-chevron">›</span>
+    `;
+    row.addEventListener("click", () => showToast(`${channel.name} details (placeholder)`));
+    salesList.appendChild(row);
+  });
 }
 
 
