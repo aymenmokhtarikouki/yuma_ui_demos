@@ -86,6 +86,7 @@ const prepByDay = {
   6: []
 };
 
+// Today selected by default for the weekday selector (Req).
 state.selectedPrepDay = getTodayWeekdayIndex();
 
 renderSlots();
@@ -158,11 +159,11 @@ function renderWeekdays() {
     const isPast = index < today;
     const isSelected = state.selectedPrepDay === index;
     btn.className = `day-pill ${isPast ? "past" : ""} ${isSelected ? "selected" : ""}`;
-    // Open prep lines metric (Req): count grouped meal lines still not completed for this day.
-    const openLinesCount = getOpenPrepLinesCount(index);
-    // Compact 9+ cap for weekday workload count (Req).
-    const displayCount = openLinesCount > 9 ? "9+" : String(openLinesCount);
-    // Stacked day + number layout (Req).
+    // Meal count metric (Req): total meals/portions for the day (not prep lines/order count).
+    const mealCount = getTotalMealCount(index);
+    // 99+ cap for compact weekday pills (Req).
+    const displayCount = mealCount > 99 ? "99+" : String(mealCount);
+    // Stacked day + number layout (Req): day label on top, meal count under it.
     btn.innerHTML = `<span class="day-pill-day">${label}</span><span class="day-pill-count">${displayCount}</span>`;
     btn.setAttribute("aria-pressed", isSelected ? "true" : "false");
     btn.addEventListener("click", () => {
@@ -174,9 +175,9 @@ function renderWeekdays() {
   });
 }
 
-function getOpenPrepLinesCount(dayIndex) {
+function getTotalMealCount(dayIndex) {
   const items = prepByDay[dayIndex] || [];
-  return items.filter((item) => item.prepared < item.total).length;
+  return items.reduce((sum, item) => sum + item.total, 0);
 }
 
 function switchPrepDay() {
