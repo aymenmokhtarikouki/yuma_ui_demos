@@ -335,7 +335,7 @@ body.kitchen-closed .order-row.rail-new::after {
   padding: var(--space-row-v) var(--space-row-h);
   margin-bottom: var(--space-tile-gap);
   background: var(--bg-surface);
-  border: 1px solid var(--row-border);
+  border: 0;
   border-radius: var(--row-radius);
   box-shadow: var(--row-shadow);
   position: relative;
@@ -343,6 +343,10 @@ body.kitchen-closed .order-row.rail-new::after {
   grid-template-columns: 36px minmax(0, 1fr);
   column-gap: 12px;
   transition: transform 200ms ease-in-out, opacity 200ms ease-in-out, background-color 200ms ease-in-out;
+}
+
+.order-row.rail-new {
+  padding-left: 25px;
 }
 
 .order-row + .order-row::before {
@@ -357,7 +361,7 @@ body.kitchen-closed .order-row.rail-new::after {
 .order-row.rail-new::after {
   content: "";
   position: absolute;
-  left: 11px;
+  left: 10px;
   top: 10px;
   bottom: 10px;
   width: 3px;
@@ -478,11 +482,12 @@ body.kitchen-closed .order-row.rail-new::after {
   font-size: 18px;
   line-height: 1;
   color: #94a3b8;
+  opacity: 0.55;
 }
 
 .row-actions {
   margin-top: var(--space-status-actions);
-  margin-bottom: 2px;
+  margin-bottom: 0;
 }
 
 .row-actions-dual {
