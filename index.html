@@ -99,6 +99,15 @@
       </div>
     </section>
 
+    <section class="pause-sheet" id="pauseSheet" aria-label="Pause channel" hidden>
+      <p class="pause-title" id="pauseTitle">Pause channel orders?</p>
+      <p class="pause-description">Existing orders stay active; new orders will be blocked until you resume.</p>
+      <div class="pause-actions">
+        <button class="primary-btn pause-confirm" type="button" id="pauseConfirmBtn">Pause orders</button>
+        <button class="pause-cancel" type="button" id="pauseCancelBtn">Keep accepting</button>
+      </div>
+    </section>
+
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
     <nav class="bottom-nav" id="bottomNav" aria-label="Main navigation">

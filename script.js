@@ -49,6 +49,10 @@ const profilePage = document.getElementById("profilePage");
 const salesFilters = document.getElementById("salesFilters");
 const salesList = document.getElementById("salesList");
 const salesAddBtn = document.getElementById("salesAddBtn");
+const pauseSheet = document.getElementById("pauseSheet");
+const pauseTitle = document.getElementById("pauseTitle");
+const pauseConfirmBtn = document.getElementById("pauseConfirmBtn");
+const pauseCancelBtn = document.getElementById("pauseCancelBtn");
 const bottomNav = document.getElementById("bottomNav");
 const focusPrepPage = document.getElementById("focusPrepPage");
 const focusBack = document.getElementById("focusBack");
@@ -95,18 +99,55 @@ const prepByDay = {
 };
 
 const salesChannels = [
-  { id: "ch_001", name: "Indian food", type: "Tiffin", status: "Active", ruleText: "Weekdays • Preorder 24h", kpiValue: 34, kpiLabel: "Orders today", icon: "🍱" },
-  { id: "ch_002", name: "Office Tiffin", type: "Tiffin", status: "Paused", ruleText: "Every day • Preorder 24h", kpiValue: 0, kpiLabel: "Orders today", icon: "🍱" },
-  { id: "ch_003", name: "Weekly Lunch Plan", type: "Weekly Plan", status: "Active", ruleText: "5 meals/week • Mon–Fri", kpiValue: 52, kpiLabel: "Subscribers", icon: "📅" },
-  { id: "ch_004", name: "Family Meal Plan", type: "Weekly Plan", status: "Draft", ruleText: "7 meals/week • Mon–Sun", kpiValue: 12, kpiLabel: "Subscribers", icon: "📅" },
-  { id: "ch_005", name: "Yuma Shop", type: "Shop", status: "Active", ruleText: "Order anytime • 48 items", kpiValue: 18, kpiLabel: "Orders today", icon: "🛍️" },
-  { id: "ch_006", name: "Healthy Snacks Shop", type: "Shop", status: "Active", ruleText: "Order anytime • 31 items", kpiValue: 11, kpiLabel: "Orders today", icon: "🛍️" }
+  {
+    id: "weekly-plan",
+    name: "Weekly Plan",
+    subtitle: "Subscription · Weekly delivery",
+    type: "Weekly Plan",
+    status: "Active",
+    icon: "📅",
+    kpis: [
+      { label: "Active subs (this week)", value: "42", icon: "👥" },
+      { label: "Total orders", value: "68", icon: "🧾" },
+      { label: "Revenue (this week)", value: "€3,240", icon: "💶" },
+      { label: "Reserved", value: "—", icon: "◻" }
+    ]
+  },
+  {
+    id: "tiffin",
+    name: "Tiffin",
+    subtitle: "Hot meals · Daily/Weekdays",
+    type: "Tiffin",
+    status: "Active",
+    icon: "🍱",
+    kpis: [
+      { label: "Orders today", value: "16", icon: "🛍" },
+      { label: "Revenue today", value: "€184", icon: "💶" },
+      { label: "Active customers (30 days)", value: "102", icon: "👤" },
+      { label: "Meals scheduled (this week)", value: "87", icon: "🗓" }
+    ]
+  },
+  {
+    id: "shop",
+    name: "Shop",
+    subtitle: "Sweets · Beverages · Cakes · Catering",
+    type: "Shop",
+    status: "Active",
+    icon: "🏬",
+    kpis: [
+      { label: "Orders today", value: "24", icon: "🛍" },
+      { label: "Revenue today", value: "€312", icon: "💶" },
+      { label: "Upcoming scheduled (7 days)", value: "19", icon: "📦" },
+      { label: "Avg fulfillment time (today)", value: "32 min", icon: "⏱" }
+    ]
+  }
 ];
 
 // Today selected by default for the weekday selector (Req).
 state.selectedPrepDay = getTodayWeekdayIndex();
 state.activeTab = "home";
 state.salesFilter = "All";
+state.pendingPauseChannelId = null;
 
 renderSlots();
 renderOrders();
@@ -124,6 +165,18 @@ setupDemoIncomingOrder();
 setupAutoRefresh();
 
 salesAddBtn?.addEventListener("click", () => showToast("Create channel (placeholder)"));
+pauseCancelBtn?.addEventListener("click", closePauseSheet);
+pauseConfirmBtn?.addEventListener("click", () => {
+  if (!state.pendingPauseChannelId) return;
+  const channel = salesChannels.find((c) => c.id === state.pendingPauseChannelId);
+  if (channel) {
+    channel.status = "Paused";
+    showToast(`${channel.name} paused`);
+    renderSalesFilters();
+    renderSalesList();
+  }
+  closePauseSheet();
+});
 
 function renderSlots() {
   slotRoot.innerHTML = "";
@@ -342,18 +395,57 @@ function renderSalesList() {
   list.forEach((channel) => {
     const row = document.createElement("article");
     row.className = "sales-card";
+    const accepting = channel.status === "Active";
+    const statusClass = accepting ? "accepting" : "paused";
     row.innerHTML = `
-      <div class="sales-icon">${channel.icon}</div>
-      <div class="sales-main">
-        <div class="sales-title-row"><p class="sales-title">${channel.name}</p><span class="sales-pill">${channel.type}</span></div>
-        <div class="sales-meta-row"><span class="sales-pill sales-status">${channel.status}</span><p class="sales-rule">${channel.ruleText}</p></div>
+      <div class="sales-head">
+        <div class="sales-icon-wrap"><div class="sales-icon">${channel.icon}</div></div>
+        <div class="sales-main">
+          <p class="sales-title">${channel.name}</p>
+          <p class="sales-subline">${channel.subtitle}</p>
+        </div>
+        <div class="sales-controls">
+          <span class="sales-status-label ${statusClass}">${accepting ? "Accepting" : "Paused"}</span>
+          <button type="button" class="sales-switch ${accepting ? "on" : ""}" data-switch="${channel.id}" aria-label="Toggle ${channel.name}"></button>
+          <span class="sales-chevron">›</span>
+        </div>
       </div>
-      <div class="sales-kpi"><strong>${channel.kpiValue}</strong><small>${channel.kpiLabel}</small></div>
-      <span class="sales-chevron">›</span>
+      <div class="sales-kpi-grid">
+        ${channel.kpis
+          .map(
+            (kpi) => `<div class="sales-kpi-cell"><p class="sales-kpi-label">${kpi.icon} ${kpi.label}</p><p class="sales-kpi-value">${kpi.value}</p></div>`
+          )
+          .join("")}
+      </div>
     `;
     row.addEventListener("click", () => showToast(`${channel.name} details (placeholder)`));
+    const toggle = row.querySelector(".sales-switch");
+    toggle.addEventListener("click", (event) => {
+      event.stopPropagation();
+      if (accepting) {
+        openPauseSheet(channel.id, channel.name);
+      } else {
+        channel.status = "Active";
+        renderSalesFilters();
+        renderSalesList();
+        showToast(`${channel.name} resumed`);
+      }
+    });
     salesList.appendChild(row);
   });
+}
+
+function openPauseSheet(channelId, channelName) {
+  state.pendingPauseChannelId = channelId;
+  pauseTitle.textContent = `Pause ${channelName} orders?`;
+  pauseSheet.hidden = false;
+  sheetBackdrop.hidden = false;
+}
+
+function closePauseSheet() {
+  state.pendingPauseChannelId = null;
+  pauseSheet.hidden = true;
+  sheetBackdrop.hidden = true;
 }
 
 
@@ -375,7 +467,13 @@ function setKitchenState(isOpen) {
 
 function bindDeclineSheet() {
   sheetCancel.addEventListener("click", closeDeclineSheet);
-  sheetBackdrop.addEventListener("click", closeDeclineSheet);
+  sheetBackdrop.addEventListener("click", () => {
+    if (!pauseSheet.hidden) {
+      closePauseSheet();
+      return;
+    }
+    closeDeclineSheet();
+  });
   sheetConfirm.addEventListener("click", () => {
     if (!state.pendingDeclineId) return;
     const idx = orderModel.findIndex((item) => item.id === state.pendingDeclineId);
