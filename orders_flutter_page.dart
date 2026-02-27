@@ -635,212 +635,307 @@ class SalesChannelsPage extends StatefulWidget {
 }
 
 class _SalesChannelsPageState extends State<SalesChannelsPage> {
-  SalesFilter _filter = SalesFilter.all;
-
-  List<SalesChannel> get _filtered {
-    if (_filter == SalesFilter.all) return salesChannels;
-    return salesChannels.where((item) => item.status == _filter).toList();
-  }
+  late final List<SalesDashboardChannel> _channels = [
+    SalesDashboardChannel(
+      id: 'weekly_plan',
+      name: 'Weekly Plan',
+      subtitle: 'Subscription · Weekly delivery',
+      icon: Icons.calendar_month_outlined,
+      iconTint: const Color(0xFF10B981),
+      iconBg: const Color(0x1410B981),
+      isAccepting: true,
+      kpis: const [
+        SalesKpi(icon: Icons.group_outlined, label: 'Active subscribers (this week)', value: '42'),
+        SalesKpi(icon: Icons.receipt_long_outlined, label: 'Total orders', value: '68'),
+        SalesKpi(icon: Icons.euro_outlined, label: 'Revenue (this week)', value: '€3,240'),
+        SalesKpi(icon: Icons.grid_view_outlined, label: 'Reserved', value: '—', subtle: true),
+      ],
+    ),
+    SalesDashboardChannel(
+      id: 'tiffin',
+      name: 'Tiffin',
+      subtitle: 'Hot meals · Daily/Weekdays',
+      icon: Icons.rice_bowl_outlined,
+      iconTint: const Color(0xFFB7791F),
+      iconBg: const Color(0x14B7791F),
+      isAccepting: true,
+      kpis: const [
+        SalesKpi(icon: Icons.shopping_bag_outlined, label: 'Orders today', value: '16'),
+        SalesKpi(icon: Icons.paid_outlined, label: 'Revenue today', value: '€184'),
+        SalesKpi(icon: Icons.groups_outlined, label: 'Active customers (30 days)', value: '102'),
+        SalesKpi(icon: Icons.event_note_outlined, label: 'Meals scheduled (this week)', value: '87'),
+      ],
+    ),
+    SalesDashboardChannel(
+      id: 'shop',
+      name: 'Shop',
+      subtitle: 'Sweets · Beverages · Cakes · Catering',
+      icon: Icons.storefront_outlined,
+      iconTint: const Color(0xFF0F766E),
+      iconBg: const Color(0x140F766E),
+      isAccepting: true,
+      kpis: const [
+        SalesKpi(icon: Icons.shopping_bag_outlined, label: 'Orders today', value: '24'),
+        SalesKpi(icon: Icons.paid_outlined, label: 'Revenue today', value: '€312'),
+        SalesKpi(icon: Icons.schedule_outlined, label: 'Upcoming scheduled (7 days)', value: '19'),
+        SalesKpi(icon: Icons.timer_outlined, label: 'Avg fulfillment time (today)', value: '32 min'),
+      ],
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: Column(
+        child: ListView(
+          padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
           children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 16, 16, 12),
-              child: Row(
-                children: [
-                  const Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Sales', style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600, color: Color(0xFF0F172A))),
-                        SizedBox(height: 4),
-                        Text(
-                          'Manage what customers can order',
-                          style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Color(0xFF64748B)),
-                        ),
-                      ],
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute<void>(builder: (_) => const _PlaceholderPage(title: 'Create Channel')),
-                      );
-                    },
-                    borderRadius: BorderRadius.circular(14),
-                    child: Ink(
-                      width: 36,
-                      height: 36,
-                      decoration: BoxDecoration(color: const Color(0xFFF8FAFC), borderRadius: BorderRadius.circular(12)),
-                      child: const Icon(Icons.add, size: 20, color: Color(0xFF0F172A)),
-                    ),
-                  ),
-                ],
-              ),
+            const Text(
+              'Sales',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600, color: Color(0xFF111827)),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Container(
-                height: 34,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFF8FAFC),
-                  borderRadius: BorderRadius.circular(999),
+            const SizedBox(height: 16),
+            ..._channels.map((channel) {
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 16),
+                child: _SalesDashboardCard(
+                  channel: channel,
+                  onOpen: () => _openChannel(channel),
+                  onToggle: (value) => _handleToggle(channel, value),
                 ),
-                child: Row(
-                  children: SalesFilter.values.map((filter) {
-                    final selected = _filter == filter;
-                    return Expanded(
-                      child: GestureDetector(
-                        onTap: () => setState(() => _filter = filter),
-                        child: AnimatedContainer(
-                          duration: const Duration(milliseconds: 180),
-                          curve: Curves.easeInOut,
-                          margin: const EdgeInsets.all(2),
-                          decoration: BoxDecoration(
-                            color: selected ? Colors.white : Colors.transparent,
-                            borderRadius: BorderRadius.circular(999),
-                          ),
-                          alignment: Alignment.center,
-                          child: Text(
-                            filter.label,
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
-                              color: selected ? const Color(0xFF0F172A) : const Color(0xFF64748B),
+              );
+            }),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _openChannel(SalesDashboardChannel channel) {
+    Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => SalesChannelDetailPage(channel: channel)));
+  }
+
+  void _handleToggle(SalesDashboardChannel channel, bool nextValue) {
+    if (nextValue) {
+      setState(() => channel.isAccepting = true);
+      return;
+    }
+
+    showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return Padding(
+          padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Pause ${channel.name} orders?',
+                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Color(0xFF111827)),
+              ),
+              const SizedBox(height: 8),
+              const Text(
+                'Existing orders stay active; new orders will be blocked until you resume.',
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Color(0xFF6B7280)),
+              ),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: double.infinity,
+                height: 46,
+                child: FilledButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    setState(() => channel.isAccepting = false);
+                  },
+                  style: FilledButton.styleFrom(
+                    backgroundColor: const Color(0xFF10B981),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                  ),
+                  child: const Text('Pause orders'),
+                ),
+              ),
+              const SizedBox(height: 10),
+              Center(
+                child: TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text(
+                    'Keep accepting',
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Color(0xFF475569)),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _SalesDashboardCard extends StatelessWidget {
+  const _SalesDashboardCard({
+    required this.channel,
+    required this.onOpen,
+    required this.onToggle,
+  });
+
+  final SalesDashboardChannel channel;
+  final VoidCallback onOpen;
+  final ValueChanged<bool> onToggle;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(16),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(16),
+        onTap: onOpen,
+        child: Ink(
+          height: 204,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: const Color(0xFFF1F5F9)),
+          ),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 72,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(14, 12, 14, 10),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 48,
+                        height: 48,
+                        decoration: BoxDecoration(color: channel.iconBg, shape: BoxShape.circle),
+                        child: Icon(channel.icon, size: 24, color: channel.iconTint),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              channel.name,
+                              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Color(0xFF111827)),
                             ),
-                          ),
+                            const SizedBox(height: 2),
+                            Text(
+                              channel.subtitle,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Color(0xFF6B7280)),
+                            ),
+                          ],
                         ),
                       ),
-                    );
-                  }).toList(),
+                      const SizedBox(width: 8),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            channel.isAccepting ? 'Accepting' : 'Paused',
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w600,
+                              color: channel.isAccepting ? const Color(0xFF10B981) : const Color(0xFF6B7280),
+                            ),
+                          ),
+                          const SizedBox(height: 2),
+                          Row(
+                            children: [
+                              Switch(
+                                value: channel.isAccepting,
+                                onChanged: onToggle,
+                                activeColor: const Color(0xFF10B981),
+                              ),
+                              const SizedBox(width: 8),
+                              const Icon(Icons.chevron_right, size: 18, color: Color(0xFF94A3B8)),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 12),
-            Expanded(
-              child: ListView.separated(
-                padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
-                itemBuilder: (context, index) {
-                  final channel = _filtered[index];
-                  return _SalesChannelTile(
-                    channel: channel,
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute<void>(builder: (_) => SalesChannelDetailPage(channel: channel)),
-                      );
-                    },
-                  );
-                },
-                separatorBuilder: (_, __) => const SizedBox(height: 12),
-                itemCount: _filtered.length,
+              const Divider(height: 1, color: Color(0xFFF1F5F9)),
+              Expanded(
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: Row(
+                        children: [
+                          Expanded(child: _KpiCell(kpi: channel.kpis[0])),
+                          const VerticalDivider(width: 1, color: Color(0xFFF1F5F9), thickness: 1),
+                          Expanded(child: _KpiCell(kpi: channel.kpis[1])),
+                        ],
+                      ),
+                    ),
+                    const Divider(height: 1, color: Color(0xFFF1F5F9)),
+                    Expanded(
+                      child: Row(
+                        children: [
+                          Expanded(child: _KpiCell(kpi: channel.kpis[2])),
+                          const VerticalDivider(width: 1, color: Color(0xFFF1F5F9), thickness: 1),
+                          Expanded(child: _KpiCell(kpi: channel.kpis[3])),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-class _SalesChannelTile extends StatelessWidget {
-  const _SalesChannelTile({required this.channel, required this.onTap});
+class _KpiCell extends StatelessWidget {
+  const _KpiCell({required this.kpi});
 
-  final SalesChannel channel;
-  final VoidCallback onTap;
+  final SalesKpi kpi;
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      borderRadius: BorderRadius.circular(16),
-      onTap: onTap,
-      child: Ink(
-        padding: const EdgeInsets.all(14),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: const Color(0x140F172A)),
-        ),
-        child: Row(
-          children: [
-            Container(
-              width: 2,
-              height: 52,
-              decoration: BoxDecoration(
-                color: channel.type.accentColor,
-                borderRadius: BorderRadius.circular(2),
-              ),
-            ),
-            const SizedBox(width: 10),
-            Container(
-              width: 28,
-              height: 28,
-              decoration: const BoxDecoration(color: Color(0xFFF3F4F6), shape: BoxShape.circle),
-              child: Icon(channel.type.icon, size: 17, color: const Color(0xFF64748B)),
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    channel.name,
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Color(0xFF0F172A)),
-                  ),
-                  const SizedBox(height: 4),
-                  Row(
-                    children: [
-                      Text(
-                        channel.type.label,
-                        style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: Color(0xFF64748B)),
-                      ),
-                      const SizedBox(width: 8),
-                      Container(width: 6, height: 6, decoration: BoxDecoration(color: channel.status.textColor, shape: BoxShape.circle)),
-                      const SizedBox(width: 5),
-                      Text(
-                        channel.status.label,
-                        style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: channel.status.textColor),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 4),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          channel.ruleText,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Color(0xFF64748B)),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(width: 10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text(
-                  '${channel.kpiValue}',
-                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: Color(0xFF0F172A)),
+    final valueColor = kpi.subtle ? const Color(0xFF9CA3AF) : const Color(0xFF111827);
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(kpi.icon, size: 18, color: const Color(0xFF6B7280)),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  kpi.label,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Color(0xFF6B7280)),
                 ),
-                Text(
-                  channel.kpiLabel,
-                  style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color: Color(0xFF64748B)),
-                ),
-              ],
-            ),
-            const SizedBox(width: 8),
-            const Icon(Icons.chevron_right, color: Color(0xFF94A3B8)),
-          ],
-        ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Text(
+            kpi.value,
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: valueColor),
+          ),
+        ],
       ),
     );
   }
@@ -849,7 +944,7 @@ class _SalesChannelTile extends StatelessWidget {
 class SalesChannelDetailPage extends StatelessWidget {
   const SalesChannelDetailPage({super.key, required this.channel});
 
-  final SalesChannel channel;
+  final SalesDashboardChannel channel;
 
   @override
   Widget build(BuildContext context) {
@@ -884,144 +979,38 @@ class _PlaceholderPage extends StatelessWidget {
   }
 }
 
-enum SalesFilter {
-  all('All'),
-  active('Active'),
-  draft('Draft'),
-  paused('Paused');
-
-  const SalesFilter(this.label);
-  final String label;
-}
-
-enum SalesChannelType {
-  tiffin('Tiffin', Icons.lunch_dining_outlined),
-  weeklyPlan('Weekly Plan', Icons.calendar_today_outlined),
-  shop('Shop', Icons.shopping_bag_outlined);
-
-  const SalesChannelType(this.label, this.icon);
-  final String label;
-  final IconData icon;
-}
-
-extension SalesChannelTypeStyle on SalesChannelType {
-  Color get accentColor {
-    switch (this) {
-      case SalesChannelType.tiffin:
-        return const Color(0xFF10B981);
-      case SalesChannelType.weeklyPlan:
-        return const Color(0xFF334155);
-      case SalesChannelType.shop:
-        return const Color(0xFFF59E0B);
-    }
-  }
-}
-
-extension SalesFilterStyle on SalesFilter {
-  Color get bgColor {
-    switch (this) {
-      case SalesFilter.active:
-        return const Color(0xFFEAF8F1);
-      case SalesFilter.draft:
-        return const Color(0xFFFFF7E6);
-      case SalesFilter.paused:
-        return const Color(0xFFF3F4F6);
-      case SalesFilter.all:
-        return const Color(0xFFF3F4F6);
-    }
-  }
-
-  Color get textColor {
-    switch (this) {
-      case SalesFilter.active:
-        return const Color(0xFF166534);
-      case SalesFilter.draft:
-        return const Color(0xFF9A6700);
-      case SalesFilter.paused:
-        return const Color(0xFF6B7280);
-      case SalesFilter.all:
-        return const Color(0xFF475569);
-    }
-  }
-}
-
-class SalesChannel {
-  const SalesChannel({
+class SalesDashboardChannel {
+  SalesDashboardChannel({
     required this.id,
     required this.name,
-    required this.type,
-    required this.status,
-    required this.ruleText,
-    required this.kpiValue,
-    required this.kpiLabel,
-    this.shopItemsCount,
+    required this.subtitle,
+    required this.icon,
+    required this.iconTint,
+    required this.iconBg,
+    required this.kpis,
+    required this.isAccepting,
   });
 
   final String id;
   final String name;
-  final SalesChannelType type;
-  final SalesFilter status;
-  final String ruleText;
-  final int kpiValue;
-  final String kpiLabel;
-  final int? shopItemsCount;
+  final String subtitle;
+  final IconData icon;
+  final Color iconTint;
+  final Color iconBg;
+  final List<SalesKpi> kpis;
+  bool isAccepting;
 }
 
-const List<SalesChannel> salesChannels = [
-  SalesChannel(
-    id: 'ch_001',
-    name: 'Indian Food',
-    type: SalesChannelType.tiffin,
-    status: SalesFilter.active,
-    ruleText: 'Weekdays • Preorder 24h',
-    kpiValue: 34,
-    kpiLabel: 'Orders today',
-  ),
-  SalesChannel(
-    id: 'ch_002',
-    name: 'Office Tiffin',
-    type: SalesChannelType.tiffin,
-    status: SalesFilter.paused,
-    ruleText: 'Every day • Preorder 24h',
-    kpiValue: 0,
-    kpiLabel: 'Orders today',
-  ),
-  SalesChannel(
-    id: 'ch_003',
-    name: 'Weekly Lunch Plan',
-    type: SalesChannelType.weeklyPlan,
-    status: SalesFilter.active,
-    ruleText: '5 meals/week • Mon–Fri',
-    kpiValue: 52,
-    kpiLabel: 'Subscribers',
-  ),
-  SalesChannel(
-    id: 'ch_004',
-    name: 'Family Meal Plan',
-    type: SalesChannelType.weeklyPlan,
-    status: SalesFilter.draft,
-    ruleText: '7 meals/week • Mon–Sun',
-    kpiValue: 12,
-    kpiLabel: 'Subscribers',
-  ),
-  SalesChannel(
-    id: 'ch_005',
-    name: 'Yuma Shop',
-    type: SalesChannelType.shop,
-    status: SalesFilter.active,
-    ruleText: 'Order anytime • 48 items',
-    kpiValue: 18,
-    kpiLabel: 'Orders today',
-    shopItemsCount: 48,
-  ),
-  SalesChannel(
-    id: 'ch_006',
-    name: 'Healthy Snacks Shop',
-    type: SalesChannelType.shop,
-    status: SalesFilter.active,
-    ruleText: 'Order anytime • 31 items',
-    kpiValue: 11,
-    kpiLabel: 'Orders today',
-    shopItemsCount: 31,
-  ),
-];
+class SalesKpi {
+  const SalesKpi({
+    required this.icon,
+    required this.label,
+    required this.value,
+    this.subtle = false,
+  });
+
+  final IconData icon;
+  final String label;
+  final String value;
+  final bool subtle;
+}
