@@ -102,46 +102,60 @@ const salesChannels = [
   {
     id: "weekly-plan",
     name: "Weekly Plan",
-    subtitle: "Subscription · Weekly delivery",
+    subtitle: "Subscription • Weekly",
     type: "Weekly Plan",
+    iconKey: "calendar",
     status: "Active",
-    icon: "📅",
     kpis: [
-      { label: "Active subs (this week)", value: "42", icon: "👥" },
-      { label: "Total orders", value: "68", icon: "🧾" },
-      { label: "Revenue (this week)", value: "€3,240", icon: "💶" },
-      { label: "Reserved", value: "—", icon: "◻" }
+      { label: "Active subscribers (this week)", value: "42", iconKey: "users" },
+      { label: "Total orders (this week)", value: "68", iconKey: "receipt" },
+      { label: "Revenue (this week)", value: "€3,240", iconKey: "revenue" }
     ]
   },
   {
     id: "tiffin",
     name: "Tiffin",
-    subtitle: "Hot meals · Daily/Weekdays",
+    subtitle: "Hot meals • Daily/Weekdays",
     type: "Tiffin",
+    iconKey: "tiffin",
     status: "Active",
-    icon: "🍱",
     kpis: [
-      { label: "Orders today", value: "16", icon: "🛍" },
-      { label: "Revenue today", value: "€184", icon: "💶" },
-      { label: "Active customers (30 days)", value: "102", icon: "👤" },
-      { label: "Meals scheduled (this week)", value: "87", icon: "🗓" }
+      { label: "Orders today", value: "16", iconKey: "receipt" },
+      { label: "Revenue today", value: "€184", iconKey: "revenue" },
+      { label: "Active customers (30 days)", value: "102", iconKey: "users" },
+      { label: "Meals scheduled (this week)", value: "87", iconKey: "calendar" }
     ]
   },
   {
     id: "shop",
     name: "Shop",
-    subtitle: "Sweets · Beverages · Cakes · Catering",
+    subtitle: "Sweets • Beverages • Cakes • Catering",
     type: "Shop",
+    iconKey: "store",
     status: "Active",
-    icon: "🏬",
     kpis: [
-      { label: "Orders today", value: "24", icon: "🛍" },
-      { label: "Revenue today", value: "€312", icon: "💶" },
-      { label: "Upcoming scheduled (7 days)", value: "19", icon: "📦" },
-      { label: "Avg fulfillment time (today)", value: "32 min", icon: "⏱" }
+      { label: "Orders today", value: "24", iconKey: "receipt" },
+      { label: "Revenue today", value: "€312", iconKey: "revenue" },
+      { label: "Upcoming scheduled orders (next 7 days)", value: "19", iconKey: "clock" },
+      { label: "Average fulfillment time (today)", value: "32 min", iconKey: "clock" }
     ]
   }
 ];
+
+
+function getSalesIconSvg(iconKey) {
+  const icons = {
+    calendar: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"></rect><path d="M8 3v4M16 3v4M3 10h18"></path></svg>',
+    tiffin: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="7" width="14" height="12" rx="3"></rect><path d="M8 7V5h8v2M3 11h18"></path></svg>',
+    store: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10h16"></path><path d="M5 10v8h14v-8"></path><path d="M3 10l2-4h14l2 4"></path></svg>',
+    users: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="9" r="3"></circle><circle cx="17" cy="8" r="2"></circle><path d="M4 19c0-2.8 2.2-5 5-5s5 2.2 5 5M15 19c0-2 1.3-3.6 3-4"></path></svg>',
+    receipt: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-2-1.5L14 21l-2-1.5L10 21l-2-1.5L6 21V3Z"></path><path d="M9 8h6M9 12h6"></path></svg>',
+    revenue: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M16 7c0-1.7-1.8-3-4-3s-4 1.3-4 3 1.8 3 4 3 4 1.3 4 3-1.8 3-4 3-4-1.3-4-3"></path></svg>',
+    clock: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v6l4 2"></path></svg>'
+  };
+
+  return icons[iconKey] || icons.receipt;
+}
 
 // Today selected by default for the weekday selector (Req).
 state.selectedPrepDay = getTodayWeekdayIndex();
@@ -394,12 +408,12 @@ function renderSalesList() {
   salesList.innerHTML = "";
   list.forEach((channel) => {
     const row = document.createElement("article");
-    row.className = "sales-card";
+    row.className = `sales-card type-${channel.id}`;
     const accepting = channel.status === "Active";
     const statusClass = accepting ? "accepting" : "paused";
     row.innerHTML = `
       <div class="sales-head">
-        <div class="sales-icon-wrap"><div class="sales-icon">${channel.icon}</div></div>
+        <div class="sales-icon-wrap"><div class="sales-icon">${getSalesIconSvg(channel.iconKey)}</div></div>
         <div class="sales-main">
           <p class="sales-title">${channel.name}</p>
           <p class="sales-subline">${channel.subtitle}</p>
@@ -407,18 +421,24 @@ function renderSalesList() {
         <div class="sales-controls">
           <span class="sales-status-label ${statusClass}">${accepting ? "Accepting" : "Paused"}</span>
           <button type="button" class="sales-switch ${accepting ? "on" : ""}" data-switch="${channel.id}" aria-label="Toggle ${channel.name}"></button>
-          <span class="sales-chevron">›</span>
+          <button type="button" class="sales-chevron" aria-label="Open ${channel.name} details">›</button>
         </div>
       </div>
-      <div class="sales-kpi-grid">
+      <div class="sales-kpi-grid ${channel.kpis.length === 3 ? "three-kpi" : ""}">
         ${channel.kpis
           .map(
-            (kpi) => `<div class="sales-kpi-cell"><p class="sales-kpi-label">${kpi.icon} ${kpi.label}</p><p class="sales-kpi-value">${kpi.value}</p></div>`
+            (kpi) => `<div class="sales-kpi-cell"><p class="sales-kpi-label"><span class="sales-kpi-icon">${getSalesIconSvg(kpi.iconKey)}</span>${kpi.label}</p><p class="sales-kpi-value">${kpi.value}</p></div>`
           )
           .join("")}
       </div>
     `;
-    row.addEventListener("click", () => showToast(`${channel.name} details (placeholder)`));
+    const openDetails = () => showToast(`${channel.name} details (placeholder)`);
+    row.addEventListener("click", openDetails);
+    row.querySelector(".sales-chevron")?.addEventListener("click", (event) => {
+      event.stopPropagation();
+      openDetails();
+    });
+
     const toggle = row.querySelector(".sales-switch");
     toggle.addEventListener("click", (event) => {
       event.stopPropagation();
