@@ -129,7 +129,7 @@ const salesChannels = [
   {
     id: "shop",
     name: "Shop",
-    subtitle: "Sweets • Beverages • Cakes • Catering",
+    subtitle: "Sweets • Beverages\nCakes • Catering",
     type: "Shop",
     iconKey: "store",
     status: "Active",

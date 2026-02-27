@@ -37,7 +37,7 @@ body.focus-mode {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0;
+  padding: 16px 16px 24px;
   background: #ffffff;
 }
 
@@ -248,7 +248,7 @@ body.kitchen-closed .kitchen-label {
   width: 100%;
   border: 0;
   background: transparent;
-  padding: 0;
+  padding: 16px 16px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -419,7 +419,8 @@ body.kitchen-closed .kitchen-label {
   opacity: 0.9;
   font-size: var(--font-status);
   font-weight: 400;
-  line-height: 1.3;
+  line-height: 1.24;
+  white-space: pre-line;
   color: #475569;
   display: inline-flex;
   align-items: center;
@@ -766,7 +767,7 @@ body.kitchen-closed .kitchen-label {
 
 .day-pill.selected {
   background: #ffffff;
-  color: #111827;
+  color: #374151;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04), 0 6px 14px rgba(0, 0, 0, 0.05);
   transform: translateY(-1px);
 }
@@ -793,7 +794,7 @@ body.kitchen-closed .kitchen-label {
 
 .day-pill.selected .day-pill-day,
 .day-pill.selected .day-pill-count {
-  color: #111827;
+  color: #374151;
 }
 
 .prep-summary {
@@ -991,6 +992,7 @@ body.kitchen-closed .kitchen-label {
 .sales-topbar h1 {
   font-size: 24px;
   line-height: 1.2;
+  color: #111827;
 }
 
 #salesPage {
@@ -998,24 +1000,24 @@ body.kitchen-closed .kitchen-label {
 }
 
 .sales-subtitle {
-  margin: 4px 0 0;
+  margin: 8px 0 0;
   font-size: 13px;
   font-weight: 500;
   color: #6b7280;
 }
 
 .sales-add-btn {
-  width: 38px;
-  height: 38px;
-  min-height: 38px;
+  width: 40px;
+  height: 40px;
+  min-height: 40px;
   border-radius: 12px;
   background: #f3f4f6;
   color: #111827;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .sales-filters {
-  margin-top: 12px;
+  margin-top: 16px;
   display: flex;
   gap: 10px;
   overflow-x: auto;
@@ -1028,7 +1030,7 @@ body.kitchen-closed .kitchen-label {
   border-radius: 18px;
   padding: 0 14px;
   background: #f3f4f6;
-  color: #111827;
+  color: #374151;
   font-size: 13px;
   font-weight: 500;
   white-space: nowrap;
@@ -1039,7 +1041,7 @@ body.kitchen-closed .kitchen-label {
 }
 
 .sales-filter-chip.selected {
-  background: rgba(22, 163, 74, 0.08);
+  background: rgba(22, 163, 74, 0.10);
   color: #15803d;
   font-weight: 600;
 }
@@ -1054,36 +1056,40 @@ body.kitchen-closed .kitchen-label {
   display: block;
   background: #fff;
   border-radius: 16px;
-  border: 1px solid #eef2f7;
+  border: 1px solid #e5e7eb;
   box-shadow: none;
-  padding: 0;
+  padding: 16px 16px 24px;
   overflow: hidden;
 }
 
 .sales-card.type-weekly-plan .sales-icon-wrap {
-  background: rgba(59, 130, 246, 0.07);
+  background: rgba(59, 130, 246, 0.05);
 }
 
 .sales-card.type-tiffin .sales-icon-wrap {
-  background: rgba(22, 163, 74, 0.08);
+  background: rgba(22, 163, 74, 0.05);
 }
 
 .sales-card.type-shop .sales-icon-wrap {
-  background: rgba(249, 115, 22, 0.08);
+  background: rgba(249, 115, 22, 0.05);
+}
+
+.sales-card:active {
+  background: #fcfcfd;
 }
 
 .sales-head {
   min-height: 72px;
-  padding: 14px 16px 12px;
+  padding: 0;
   display: grid;
-  grid-template-columns: 48px minmax(0, 1fr) auto;
+  grid-template-columns: 44px minmax(0, 1fr) auto;
   gap: 12px;
   align-items: center;
 }
 
 .sales-icon-wrap {
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   display: grid;
   place-items: center;
@@ -1110,24 +1116,26 @@ body.kitchen-closed .kitchen-label {
 .sales-title {
   margin: 0;
   font-size: 18px;
+  letter-spacing: -0.002em;
   font-weight: 600;
   color: #111827;
   line-height: 1.15;
 }
 
 .sales-subline {
-  margin: 4px 0 0;
+  margin: 6px 0 0;
   font-size: 13px;
   font-weight: 500;
   color: #6b7280;
-  line-height: 1.3;
+  line-height: 1.24;
+  white-space: pre-line;
 }
 
 .sales-controls {
   display: grid;
   grid-auto-flow: column;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .sales-status-label {
@@ -1144,7 +1152,7 @@ body.kitchen-closed .kitchen-label {
   height: 22px;
   border: 0;
   border-radius: 999px;
-  background: rgba(148, 163, 184, 0.35);
+  background: rgba(100, 116, 139, 0.25);
   position: relative;
 }
 
@@ -1162,7 +1170,7 @@ body.kitchen-closed .kitchen-label {
 }
 
 .sales-switch.on {
-  background: rgba(22, 163, 74, 0.35);
+  background: rgba(22, 163, 74, 0.25);
 }
 
 .sales-switch.on::after {
@@ -1181,11 +1189,12 @@ body.kitchen-closed .kitchen-label {
 }
 
 .sales-kpi-grid {
-  padding: 2px 16px 16px;
+  margin-top: 14px;
+  padding: 0;
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 20px;
-  row-gap: 16px;
+  row-gap: 18px;
 }
 
 .sales-kpi-grid.three-kpi .sales-kpi-cell:last-child {
@@ -1195,6 +1204,9 @@ body.kitchen-closed .kitchen-label {
 .sales-kpi-cell {
   padding: 0;
   min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .sales-kpi-label {
@@ -1221,8 +1233,8 @@ body.kitchen-closed .kitchen-label {
 }
 
 .sales-kpi-value {
-  margin: 7px 0 0;
-  font-size: 19px;
+  margin: 6px 0 0;
+  font-size: 20px;
   font-weight: 600;
   color: #111827;
   line-height: 1.15;
@@ -1250,7 +1262,7 @@ body.kitchen-closed .kitchen-label {
   margin: 0;
   font-size: 20px;
   font-weight: 600;
-  color: #111827;
+  color: #374151;
 }
 
 .pause-description {
