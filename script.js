@@ -136,8 +136,8 @@ const salesChannels = [
     kpis: [
       { label: "Orders today", value: "24", iconKey: "receipt" },
       { label: "Revenue today", value: "€312", iconKey: "revenue" },
-      { label: "Upcoming scheduled orders\n(next 7 days)", value: "19", iconKey: "clock" },
-      { label: "Average fulfillment time\n(today)", value: "32 min", iconKey: "clock" }
+      { label: "Upcoming scheduled\norders (next 7 days)", value: "19", iconKey: "clock" },
+      { label: "Average fulfillment\ntime (today)", value: "32 min", iconKey: "clock" }
     ]
   }
 ];

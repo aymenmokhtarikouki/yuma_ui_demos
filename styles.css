@@ -991,18 +991,18 @@ body.kitchen-closed .kitchen-label {
 .sales-topbar h1 {
   font-size: 24px;
   line-height: 1.2;
-  color: #111827;
+  color: #0f172a;
 }
 
 #salesPage {
-  padding: 20px 20px calc(92px + env(safe-area-inset-bottom));
+  padding: 20px 20px calc(104px + env(safe-area-inset-bottom));
 }
 
 .sales-subtitle {
   margin: 6px 0 0;
   font-size: 13px;
   font-weight: 500;
-  color: #6b7280;
+  color: #64748b;
 }
 
 .sales-add-btn {
@@ -1027,7 +1027,7 @@ body.kitchen-closed .kitchen-label {
   min-height: 36px;
   border: 0;
   border-radius: 18px;
-  padding: 0 12px;
+  padding: 0 10px;
   background: #f3f4f6;
   color: #374151;
   font-size: 13px;
@@ -1042,7 +1042,7 @@ body.kitchen-closed .kitchen-label {
 .sales-filter-chip.selected {
   background: rgba(22, 163, 74, 0.10);
   color: #15803d;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .sales-list {
@@ -1055,36 +1055,36 @@ body.kitchen-closed .kitchen-label {
   display: block;
   background: #fff;
   border-radius: 16px;
-  border: 1px solid #e6e8ec;
+  border: 1px solid #e2e8f0;
   box-shadow: none;
-  padding: 16px 16px 20px;
+  padding: 16px 16px 22px;
   overflow: hidden;
 }
 
 .sales-card.type-weekly-plan .sales-icon-wrap {
-  background: rgba(59, 130, 246, 0.04);
+  background: rgba(59, 130, 246, 0.035);
 }
 
 .sales-card.type-tiffin .sales-icon-wrap {
-  background: rgba(22, 163, 74, 0.04);
+  background: rgba(22, 163, 74, 0.035);
 }
 
 .sales-card.type-shop .sales-icon-wrap {
-  background: rgba(249, 115, 22, 0.04);
+  background: rgba(249, 115, 22, 0.035);
 }
 
 .sales-head {
   min-height: 72px;
   padding: 0;
   display: grid;
-  grid-template-columns: 44px minmax(0, 1fr) auto;
+  grid-template-columns: 40px minmax(0, 1fr) auto;
   gap: 12px;
   align-items: center;
 }
 
 .sales-icon-wrap {
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   display: grid;
   place-items: center;
@@ -1092,8 +1092,8 @@ body.kitchen-closed .kitchen-label {
 
 .sales-icon svg,
 .sales-kpi-icon svg {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   fill: none;
   stroke: currentColor;
   stroke-width: 2;
@@ -1113,7 +1113,7 @@ body.kitchen-closed .kitchen-label {
   font-size: 18px;
   letter-spacing: -0.002em;
   font-weight: 600;
-  color: #111827;
+  color: #0f172a;
   line-height: 1.15;
 }
 
@@ -1143,8 +1143,8 @@ body.kitchen-closed .kitchen-label {
 .sales-status-label.paused { color: #9ca3af; }
 
 .sales-switch {
-  width: 40px;
-  height: 22px;
+  width: 38px;
+  height: 21px;
   border: 0;
   border-radius: 999px;
   background: rgba(100, 116, 139, 0.25);
@@ -1153,8 +1153,8 @@ body.kitchen-closed .kitchen-label {
 
 .sales-switch::after {
   content: "";
-  width: 18px;
-  height: 18px;
+  width: 17px;
+  height: 17px;
   border-radius: 50%;
   background: #fff;
   position: absolute;
@@ -1165,31 +1165,31 @@ body.kitchen-closed .kitchen-label {
 }
 
 .sales-switch.on {
-  background: rgba(22, 163, 74, 0.25);
+  background: rgba(22, 163, 74, 0.22);
 }
 
 .sales-switch.on::after {
-  transform: translateX(18px);
+  transform: translateX(17px);
 }
 
 .sales-chevron {
   border: 0;
   background: transparent;
-  color: #9ca3af;
+  color: #94a3b8;
   font-size: 18px;
   line-height: 1;
   padding: 0;
   width: 18px;
-  margin-left: 4px;
+  margin-left: 6px;
 }
 
 .sales-kpi-grid {
-  margin-top: 16px;
+  margin-top: 12px;
   padding: 0;
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 20px;
-  row-gap: 16px;
+  row-gap: 14px;
 }
 
 .sales-kpi-grid.three-kpi .sales-kpi-cell:last-child {
@@ -1229,7 +1229,7 @@ body.kitchen-closed .kitchen-label {
   margin: 4px 0 0;
   font-size: 20px;
   font-weight: 600;
-  color: #111827;
+  color: #0f172a;
   line-height: 1.15;
 }
 
