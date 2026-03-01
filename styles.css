@@ -266,7 +266,7 @@ body.kitchen-closed .kitchen-label {
   display: inline-block;
   font-size: 18px;
   line-height: 1;
-  color: #6b7280;
+  color: #64748b;
   font-weight: 500;
   transform: rotate(180deg);
   transition: transform 180ms ease-in-out;
@@ -309,7 +309,7 @@ body.kitchen-closed .kitchen-label {
 }
 
 .section-list > .order-row:first-child {
-  margin-top: 12px;
+  margin-top: 10px;
 }
 
 .count-badge {
@@ -637,7 +637,7 @@ body.kitchen-closed .kitchen-label {
   margin: 0 0 12px;
   font-size: 14px;
   font-weight: 600;
-  color: #0f172a;
+  color: #0b1220;
 }
 
 .sheet-actions {
@@ -650,7 +650,7 @@ body.kitchen-closed .kitchen-label {
   border: 0;
   min-height: 44px;
   background: #f1f5f9;
-  color: #0f172a;
+  color: #0b1220;
   font-size: 13px;
   font-weight: 600;
 }
@@ -752,7 +752,7 @@ body.kitchen-closed .kitchen-label {
   border-radius: 999px;
   background: #f8f8f8;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02), 0 2px 6px rgba(0, 0, 0, 0.03);
-  color: #0f172a;
+  color: #0b1220;
   display: inline-flex;
   /* Improved pill typography centering: day + count stack is optically centered (Req). */
   flex-direction: column;
@@ -797,7 +797,7 @@ body.kitchen-closed .kitchen-label {
 }
 
 .prep-summary {
-  margin-top: 12px;
+  margin-top: 10px;
 }
 
 .prep-summary h3 {
@@ -819,7 +819,7 @@ body.kitchen-closed .kitchen-label {
   min-height: 28px;
   border-radius: 999px;
   background: #f4f5f5;
-  padding: 0 10px;
+  padding: 0 9px;
   display: inline-flex;
   align-items: center;
   font-size: 12px;
@@ -844,7 +844,7 @@ body.kitchen-closed .kitchen-label {
 
 .prep-card {
   background: #fff;
-  border-radius: 16px;
+  border-radius: 12px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 6px 16px rgba(0, 0, 0, 0.08);
   padding: 14px 16px;
   margin-bottom: 12px;
@@ -858,7 +858,7 @@ body.kitchen-closed .kitchen-label {
   margin: 0;
   font-size: 19px;
   font-weight: 600;
-  color: #0f172a;
+  color: #0b1220;
 }
 
 .prep-qty {
@@ -889,7 +889,7 @@ body.kitchen-closed .kitchen-label {
 }
 
 .prep-actions {
-  margin-top: 12px;
+  margin-top: 10px;
   display: flex;
   gap: 8px;
 }
@@ -991,11 +991,11 @@ body.kitchen-closed .kitchen-label {
 .sales-topbar h1 {
   font-size: 24px;
   line-height: 1.2;
-  color: #0f172a;
+  color: #0b1220;
 }
 
 #salesPage {
-  padding: 20px 20px calc(104px + env(safe-area-inset-bottom));
+  padding: 20px 20px calc(108px + env(safe-area-inset-bottom));
 }
 
 .sales-subtitle {
@@ -1003,13 +1003,14 @@ body.kitchen-closed .kitchen-label {
   font-size: 13px;
   font-weight: 500;
   color: #64748b;
+  line-height: 1.2;
 }
 
 .sales-add-btn {
   width: 40px;
   height: 40px;
   min-height: 40px;
-  border-radius: 12px;
+  border-radius: 10px;
   background: #f3f4f6;
   color: #111827;
   font-size: 18px;
@@ -1027,7 +1028,7 @@ body.kitchen-closed .kitchen-label {
   min-height: 36px;
   border: 0;
   border-radius: 18px;
-  padding: 0 10px;
+  padding: 0 9px;
   background: #f3f4f6;
   color: #374151;
   font-size: 13px;
@@ -1040,7 +1041,7 @@ body.kitchen-closed .kitchen-label {
 }
 
 .sales-filter-chip.selected {
-  background: rgba(22, 163, 74, 0.10);
+  background: rgba(22, 163, 74, 0.08);
   color: #15803d;
   font-weight: 700;
 }
@@ -1048,16 +1049,16 @@ body.kitchen-closed .kitchen-label {
 .sales-list {
   margin-top: 16px;
   display: grid;
-  gap: 16px;
+  gap: 14px;
 }
 
 .sales-card {
   display: block;
   background: #fff;
-  border-radius: 16px;
-  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  border: 1px solid #dce1e8;
   box-shadow: none;
-  padding: 16px 16px 22px;
+  padding: 16px 16px 20px;
   overflow: hidden;
 }
 
@@ -1113,7 +1114,7 @@ body.kitchen-closed .kitchen-label {
   font-size: 18px;
   letter-spacing: -0.002em;
   font-weight: 600;
-  color: #0f172a;
+  color: #0b1220;
   line-height: 1.15;
 }
 
@@ -1130,7 +1131,7 @@ body.kitchen-closed .kitchen-label {
   display: grid;
   grid-auto-flow: column;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .sales-status-label {
@@ -1139,12 +1140,12 @@ body.kitchen-closed .kitchen-label {
   white-space: nowrap;
 }
 
-.sales-status-label.accepting { color: #16a34a; }
+.sales-status-label.accepting { color: #15803d; }
 .sales-status-label.paused { color: #9ca3af; }
 
 .sales-switch {
-  width: 38px;
-  height: 21px;
+  width: 40px;
+  height: 22px;
   border: 0;
   border-radius: 999px;
   background: rgba(100, 116, 139, 0.25);
@@ -1153,8 +1154,8 @@ body.kitchen-closed .kitchen-label {
 
 .sales-switch::after {
   content: "";
-  width: 17px;
-  height: 17px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   background: #fff;
   position: absolute;
@@ -1165,11 +1166,11 @@ body.kitchen-closed .kitchen-label {
 }
 
 .sales-switch.on {
-  background: rgba(22, 163, 74, 0.22);
+  background: rgba(22, 163, 74, 0.18);
 }
 
 .sales-switch.on::after {
-  transform: translateX(17px);
+  transform: translateX(18px);
 }
 
 .sales-chevron {
@@ -1180,16 +1181,16 @@ body.kitchen-closed .kitchen-label {
   line-height: 1;
   padding: 0;
   width: 18px;
-  margin-left: 6px;
+  margin-left: 4px;
 }
 
 .sales-kpi-grid {
-  margin-top: 12px;
+  margin-top: 10px;
   padding: 0;
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 20px;
-  row-gap: 14px;
+  row-gap: 12px;
 }
 
 .sales-kpi-grid.three-kpi .sales-kpi-cell:last-child {
@@ -1205,9 +1206,9 @@ body.kitchen-closed .kitchen-label {
 }
 
 .sales-kpi-label {
-  margin: 6px 0 0;
+  margin: 4px 0 0;
   font-size: 12px;
-  color: #6b7280;
+  color: #64748b;
   font-weight: 500;
   line-height: 1.25;
   white-space: pre-line;
@@ -1216,20 +1217,21 @@ body.kitchen-closed .kitchen-label {
 .sales-kpi-icon {
   display: inline-grid;
   place-items: center;
-  color: #6b7280;
+  color: #94a3b8;
 }
 
 .sales-kpi-icon svg {
-  width: 16px;
-  height: 16px;
+  width: 15px;
+  height: 15px;
   stroke-width: 2;
 }
 
 .sales-kpi-value {
   margin: 4px 0 0;
-  font-size: 20px;
+  font-size: 21px;
   font-weight: 600;
-  color: #0f172a;
+  letter-spacing: -0.003em;
+  color: #0b1220;
   line-height: 1.15;
 }
 
@@ -1318,3 +1320,7 @@ body.kitchen-closed .kitchen-label {
 .nav-item.active .nav-indicator { background: #10b981; }
 
 body { padding-bottom: 72px; }
+
+.sales-card.type-weekly-plan .sales-kpi-cell:last-child .sales-kpi-value {
+  font-size: 22px;
+}
