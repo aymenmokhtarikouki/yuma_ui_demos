@@ -427,7 +427,7 @@ function renderSalesList() {
       <div class="sales-kpi-grid ${channel.kpis.length === 3 ? "three-kpi" : ""}">
         ${channel.kpis
           .map(
-            (kpi) => `<div class="sales-kpi-cell"><span class="sales-kpi-icon">${getSalesIconSvg(kpi.iconKey)}</span><p class="sales-kpi-label">${kpi.label}</p><p class="sales-kpi-value">${kpi.value}</p></div>`
+            (kpi) => `<div class="sales-kpi-cell"><div class="sales-kpi-meta"><span class="sales-kpi-icon">${getSalesIconSvg(kpi.iconKey)}</span><p class="sales-kpi-label">${kpi.label}</p></div><p class="sales-kpi-value">${kpi.value}</p></div>`
           )
           .join("")}
       </div>

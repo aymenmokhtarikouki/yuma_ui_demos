@@ -1190,7 +1190,7 @@ body.kitchen-closed .kitchen-label {
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 20px;
-  row-gap: 12px;
+  row-gap: 10px;
 }
 
 .sales-kpi-grid.three-kpi .sales-kpi-cell:last-child {
@@ -1205,8 +1205,14 @@ body.kitchen-closed .kitchen-label {
   align-items: flex-start;
 }
 
+.sales-kpi-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
 .sales-kpi-label {
-  margin: 4px 0 0;
+  margin: 0;
   font-size: 12px;
   color: #64748b;
   font-weight: 500;
@@ -1215,14 +1221,17 @@ body.kitchen-closed .kitchen-label {
 }
 
 .sales-kpi-icon {
+  width: 14px;
+  height: 14px;
+  flex: 0 0 14px;
   display: inline-grid;
   place-items: center;
   color: #94a3b8;
 }
 
 .sales-kpi-icon svg {
-  width: 15px;
-  height: 15px;
+  width: 14px;
+  height: 14px;
   stroke-width: 2;
 }
 
@@ -1321,6 +1330,3 @@ body.kitchen-closed .kitchen-label {
 
 body { padding-bottom: 72px; }
 
-.sales-card.type-weekly-plan .sales-kpi-cell:last-child .sales-kpi-value {
-  font-size: 22px;
-}
