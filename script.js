@@ -123,21 +123,21 @@ const salesChannels = [
       { label: "Orders today", value: "16", iconKey: "receipt" },
       { label: "Revenue today", value: "€184", iconKey: "revenue" },
       { label: "Active customers (30 days)", value: "102", iconKey: "users" },
-      { label: "Meals scheduled (this week)", value: "87", iconKey: "calendar" }
+      { label: "Meals scheduled\n(this week)", value: "87", iconKey: "calendar" }
     ]
   },
   {
     id: "shop",
     name: "Shop",
-    subtitle: "Sweets • Beverages\nCakes • Catering",
+    subtitle: "Sweets • Beverages<br>Cakes • Catering",
     type: "Shop",
     iconKey: "store",
     status: "Active",
     kpis: [
       { label: "Orders today", value: "24", iconKey: "receipt" },
       { label: "Revenue today", value: "€312", iconKey: "revenue" },
-      { label: "Upcoming scheduled orders (next 7 days)", value: "19", iconKey: "clock" },
-      { label: "Average fulfillment time (today)", value: "32 min", iconKey: "clock" }
+      { label: "Upcoming scheduled orders\n(next 7 days)", value: "19", iconKey: "clock" },
+      { label: "Average fulfillment time\n(today)", value: "32 min", iconKey: "clock" }
     ]
   }
 ];
@@ -427,7 +427,7 @@ function renderSalesList() {
       <div class="sales-kpi-grid ${channel.kpis.length === 3 ? "three-kpi" : ""}">
         ${channel.kpis
           .map(
-            (kpi) => `<div class="sales-kpi-cell"><p class="sales-kpi-label"><span class="sales-kpi-icon">${getSalesIconSvg(kpi.iconKey)}</span>${kpi.label}</p><p class="sales-kpi-value">${kpi.value}</p></div>`
+            (kpi) => `<div class="sales-kpi-cell"><span class="sales-kpi-icon">${getSalesIconSvg(kpi.iconKey)}</span><p class="sales-kpi-label">${kpi.label}</p><p class="sales-kpi-value">${kpi.value}</p></div>`
           )
           .join("")}
       </div>
