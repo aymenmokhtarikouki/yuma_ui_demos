@@ -417,6 +417,7 @@ function renderSalesList() {
         <div class="sales-main">
           <p class="sales-title">${channel.name}</p>
           <p class="sales-subline">${channel.subtitle}</p>
+          <p class="sales-meta-hint">${accepting ? "Live now" : "Orders paused"}</p>
         </div>
         <div class="sales-controls">
           <span class="sales-status-label ${statusClass}">${accepting ? "Accepting" : "Paused"}</span>
