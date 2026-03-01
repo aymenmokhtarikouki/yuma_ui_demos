@@ -995,7 +995,8 @@ body.kitchen-closed .kitchen-label {
 }
 
 #salesPage {
-  padding: 20px 20px calc(108px + env(safe-area-inset-bottom));
+  padding: 20px 20px calc(118px + env(safe-area-inset-bottom));
+  background: #f8fafc;
 }
 
 .sales-subtitle {
@@ -1010,16 +1011,18 @@ body.kitchen-closed .kitchen-label {
   width: 40px;
   height: 40px;
   min-height: 40px;
-  border-radius: 10px;
-  background: #f3f4f6;
-  color: #111827;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid #e6ebf2;
+  color: #0b1220;
   font-size: 18px;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.04);
 }
 
 .sales-filters {
-  margin-top: 14px;
+  margin-top: 16px;
   display: flex;
-  gap: 8px;
+  gap: 10px;
   overflow-x: auto;
   padding-bottom: 2px;
 }
@@ -1027,9 +1030,9 @@ body.kitchen-closed .kitchen-label {
 .sales-filter-chip {
   min-height: 36px;
   border: 0;
-  border-radius: 18px;
-  padding: 0 9px;
-  background: #f3f4f6;
+  border-radius: 999px;
+  padding: 0 12px;
+  background: #f1f5f9;
   color: #374151;
   font-size: 13px;
   font-weight: 500;
@@ -1037,28 +1040,28 @@ body.kitchen-closed .kitchen-label {
 }
 
 .sales-filter-chip:active {
-  background: #e5e7eb;
+  background: #e2e8f0;
 }
 
 .sales-filter-chip.selected {
-  background: rgba(22, 163, 74, 0.08);
-  color: #15803d;
-  font-weight: 700;
+  background: rgba(22, 163, 74, 0.1);
+  color: #166534;
+  font-weight: 600;
 }
 
 .sales-list {
-  margin-top: 16px;
+  margin-top: 18px;
   display: grid;
-  gap: 14px;
+  gap: 18px;
 }
 
 .sales-card {
   display: block;
-  background: #fff;
-  border-radius: 12px;
-  border: 1px solid #dce1e8;
-  box-shadow: none;
-  padding: 16px 16px 20px;
+  background: #fffefd;
+  border-radius: 24px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 10px 30px rgba(15, 23, 42, 0.06);
+  padding: 18px 18px 22px;
   overflow: hidden;
 }
 
@@ -1078,14 +1081,14 @@ body.kitchen-closed .kitchen-label {
   min-height: 72px;
   padding: 0;
   display: grid;
-  grid-template-columns: 40px minmax(0, 1fr) auto;
+  grid-template-columns: 44px minmax(0, 1fr) auto;
   gap: 12px;
   align-items: center;
 }
 
 .sales-icon-wrap {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   display: grid;
   place-items: center;
@@ -1135,13 +1138,16 @@ body.kitchen-closed .kitchen-label {
 }
 
 .sales-status-label {
-  font-size: 13px;
-  font-weight: 500;
+  font-size: 12px;
+  font-weight: 600;
   white-space: nowrap;
+  border-radius: 999px;
+  padding: 4px 10px;
+  background: #f1f5f9;
 }
 
-.sales-status-label.accepting { color: #15803d; }
-.sales-status-label.paused { color: #9ca3af; }
+.sales-status-label.accepting { color: #166534; background: rgba(22, 163, 74, 0.12); }
+.sales-status-label.paused { color: #64748b; background: #eef2f7; }
 
 .sales-switch {
   width: 40px;
@@ -1185,12 +1191,13 @@ body.kitchen-closed .kitchen-label {
 }
 
 .sales-kpi-grid {
-  margin-top: 10px;
-  padding: 0;
+  margin-top: 14px;
+  padding: 14px 0 0;
+  border-top: 1px solid #e9edf3;
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 20px;
-  row-gap: 10px;
+  row-gap: 14px;
 }
 
 .sales-kpi-grid.three-kpi .sales-kpi-cell:last-child {
@@ -1302,10 +1309,12 @@ body.kitchen-closed .kitchen-label {
   width: min(430px, 100%);
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  background: #fff;
-  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(8px);
+  border-top: 1px solid #e6ebf2;
+  box-shadow: 0 -8px 24px rgba(15, 23, 42, 0.08);
   z-index: 55;
-  padding: 2px 0 6px;
+  padding: 4px 0 8px;
 }
 
 .nav-item {
@@ -1328,5 +1337,5 @@ body.kitchen-closed .kitchen-label {
 .nav-item.active { color: #10b981; }
 .nav-item.active .nav-indicator { background: #10b981; }
 
-body { padding-bottom: 72px; }
+body { padding-bottom: calc(92px + env(safe-area-inset-bottom)); }
 
